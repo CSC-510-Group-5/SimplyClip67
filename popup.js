@@ -513,6 +513,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     let contentDiv = document.createElement("div"),
     listDiv = document.createElement("div"),
     toolsDiv = document.createElement("div"),
+    unhideDiv = document.createElement("div")
     
     selectDiv = document.createElement("div"),
     copyDiv = document.createElement("div")
@@ -523,6 +524,8 @@ function addClipboardListItem(text,item_color,bg_color) {
     upArrowDiv = document.createElement("div"),
     downArrowDiv = document.createElement("div"),
     citDiv = document.createElement("div"),
+    hideDiv = document.createElement("div"),
+    unhideButton = document.createElement("div")
     
     copyImage = document.createElement("img"),
     editImage = document.createElement("img"),
@@ -532,6 +535,8 @@ function addClipboardListItem(text,item_color,bg_color) {
     citImage = document.createElement("img"),
     upArrowImage = document.createElement("img"),
     downArrowImage = document.createElement("img");
+    hideImage = document.createElement("img");
+    unhideImage = document.createElement("img");
 
     //highlightButton = document.createElement("button"),
     // summDiv = document.createElement("div")
@@ -562,6 +567,11 @@ function addClipboardListItem(text,item_color,bg_color) {
     listDiv.classList.add("list-div");
     contentDiv.appendChild(listDiv);
 
+    //adding the unhide section
+    unhideDiv.style.height = '30px';
+    unhideImage.style.height = "20px"
+    unhideDiv.style.backgrounColor = bg_color
+
     // Tools div will contain tools such as edit,delete, up/down arrows and so on
     toolsDiv.classList.add("tools");
 
@@ -576,6 +586,8 @@ function addClipboardListItem(text,item_color,bg_color) {
     citImage.src = './images/flaticons/cite-icon.png';
     upArrowImage.src = './images/flaticons/double-up-arrow.png';
     downArrowImage.src = '/images/flaticons/double-down-arrow.png';
+    hideImage.src = '/images/flaticons/hidesource.png';
+    unhideImage.src = '/images/flaticons/hidesource.png';
     // summImage.src = './images/summarizer.png';
     // summImage.classList.add("summarize");
 
@@ -583,6 +595,9 @@ function addClipboardListItem(text,item_color,bg_color) {
     copyDiv.appendChild(copyImage);
     editDiv.appendChild(editImage);
     deleteDiv.appendChild(deleteImage);
+    hideDiv.appendChild(hideImage)
+    unhideDiv.appendChild(unhideButton)
+    unhideButton.appendChild(unhideImage)
 
     var textColorSelect = document.createElement('select');
     textColorSelect.classList.add('dropdown');
@@ -619,6 +634,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     citDiv.classList.add("tool-wrapper");
     upArrowDiv.classList.add("tool-wrapper");
     downArrowDiv.classList.add("tool-wrapper");
+    hideDiv.classList.add("tool-wrapper")
     toolsDiv.appendChild(selectDiv);
     toolsDiv.appendChild(copyDiv);
     toolsDiv.appendChild(editDiv);
@@ -628,7 +644,9 @@ function addClipboardListItem(text,item_color,bg_color) {
     toolsDiv.appendChild(citDiv);    
     toolsDiv.appendChild(upArrowDiv);
     toolsDiv.appendChild(downArrowDiv);
+    toolsDiv.appendChild(hideDiv)
     contentDiv.appendChild(toolsDiv);
+    contentDiv.appendChild(unhideDiv)
 
     // 3] Adding tooltips 
 
@@ -671,6 +689,14 @@ function addClipboardListItem(text,item_color,bg_color) {
     downArrowDiv.setAttribute("data-toggle", "tooltip");
     downArrowDiv.setAttribute("data-placement", "bottom");
     downArrowDiv.setAttribute("title", "Move Down");
+
+    hideDiv.setAttribute("data-toggle", "tooltip");
+    hideDiv.setAttribute("data-placement", "bottom");
+    hideDiv.setAttribute("title", "Hide");
+
+    unhideDiv.setAttribute("data-toggle", "tooltip");
+    unhideDiv.setAttribute("data-placement", "bottom");
+    unhideDiv.setAttribute("title", "Unhide");
 
     // summImage = document.createElement("img");
     // summImage.setAttribute("data-toggle", "tooltip");
@@ -755,7 +781,6 @@ function addClipboardListItem(text,item_color,bg_color) {
     // Create choices
     let colorchoices = [];
     colorchoices = ["Black", "Blue", "Red", "Green"];
-    console.log(colorchoices);
     colorchoices.forEach((value, key) => {
         var option = document.createElement("option");
         option.value = value.toLowerCase();
