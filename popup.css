@@ -620,3 +620,17 @@ ul li {
     height: 22px;
     width: 22px;
 }
+
+.unhide {
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: white;
+}
+
+.unhide:hover{
+    background-color: lightgray;
+}
