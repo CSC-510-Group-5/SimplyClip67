@@ -522,6 +522,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     let contentDiv = document.createElement("div"),
     listDiv = document.createElement("div"),
     toolsDiv = document.createElement("div"),
+    unhideDiv = document.createElement("div")
     
     selectDiv = document.createElement("div"),
     copyDiv = document.createElement("div")
@@ -532,6 +533,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     upArrowDiv = document.createElement("div"),
     downArrowDiv = document.createElement("div"),
     citDiv = document.createElement("div"),
+    hideDiv = document.createElement("div"),
     translateDiv = document.createElement("div"),
     
     copyImage = document.createElement("img"),
@@ -541,7 +543,9 @@ function addClipboardListItem(text,item_color,bg_color) {
     bgColorImage = document.createElement("img"),
     citImage = document.createElement("img"),
     upArrowImage = document.createElement("img"),
-    downArrowImage = document.createElement("img"),
+    downArrowImage = document.createElement("img");
+    hideImage = document.createElement("img");
+    unhideImage = document.createElement("img");
     translateImage = document.createElement("img");
 
     //highlightButton = document.createElement("button"),
@@ -573,8 +577,13 @@ function addClipboardListItem(text,item_color,bg_color) {
     listDiv.classList.add("list-div");
     contentDiv.appendChild(listDiv);
 
+    //adding the unhide section
+    unhideDiv.style.height = '30px';
+    unhideImage.style.height = "30px"
+
     // Tools div will contain tools such as edit,delete, up/down arrows and so on
     toolsDiv.classList.add("tools");
+    unhideDiv.classList.add("unhide")
 
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -587,6 +596,8 @@ function addClipboardListItem(text,item_color,bg_color) {
     citImage.src = './images/flaticons/cite-icon.png';
     upArrowImage.src = './images/flaticons/double-up-arrow.png';
     downArrowImage.src = '/images/flaticons/double-down-arrow.png';
+    hideImage.src = '/images/flaticons/hidesource.png';
+    unhideImage.src = '/images/flaticons/reveal.png';
     translateImage.src = './images/googletranslate.png';
     // summImage.src = './images/summarizer.png';
     // summImage.classList.add("summarize");
@@ -595,6 +606,15 @@ function addClipboardListItem(text,item_color,bg_color) {
     copyDiv.appendChild(copyImage);
     editDiv.appendChild(editImage);
     deleteDiv.appendChild(deleteImage);
+    hideDiv.appendChild(hideImage)
+
+
+    unhideDiv.appendChild(unhideImage);
+    unhideImage.style.float = 'right';
+    unhideDiv.style.display = 'flex';
+    unhideDiv.style.alignItems = 'center';
+    unhideDiv.style.justifyContent = 'flex-end'; // Right alignment
+    unhideImage.style.marginRight = '10px'; // Keep right margin for spacing
     translateDiv.appendChild(translateImage);
 
     var textColorSelect = document.createElement('select');
@@ -632,6 +652,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     citDiv.classList.add("tool-wrapper");
     upArrowDiv.classList.add("tool-wrapper");
     downArrowDiv.classList.add("tool-wrapper");
+    hideDiv.classList.add("tool-wrapper")
     translateDiv.classList.add("tool-wrapper");
     toolsDiv.appendChild(selectDiv);
     toolsDiv.appendChild(copyDiv);
@@ -642,8 +663,10 @@ function addClipboardListItem(text,item_color,bg_color) {
     toolsDiv.appendChild(citDiv);    
     toolsDiv.appendChild(upArrowDiv);
     toolsDiv.appendChild(downArrowDiv);
+    toolsDiv.appendChild(hideDiv)
     toolsDiv.appendChild(translateDiv);
     contentDiv.appendChild(toolsDiv);
+    contentDiv.appendChild(unhideDiv)
 
     // 3] Adding tooltips 
 
@@ -687,6 +710,14 @@ function addClipboardListItem(text,item_color,bg_color) {
     downArrowDiv.setAttribute("data-placement", "bottom");
     downArrowDiv.setAttribute("title", "Move Down");
 
+    hideDiv.setAttribute("data-toggle", "tooltip");
+    hideDiv.setAttribute("data-placement", "bottom");
+    hideDiv.setAttribute("title", "Hide");
+
+    unhideDiv.setAttribute("data-toggle", "tooltip");
+    unhideDiv.setAttribute("data-placement", "bottom");
+    unhideDiv.setAttribute("title", "Unhide");
+    unhideDiv.style.display = 'none';
     translateDiv.setAttribute("data-toggle", "tooltip");
     translateDiv.setAttribute("data-placement", "bottom");
     translateDiv.setAttribute("title", "Translate Entry");
@@ -714,6 +745,21 @@ function addClipboardListItem(text,item_color,bg_color) {
     //         });
     //     })
     // })   
+    // Add event listener to the unhide button
+    unhideDiv.addEventListener('click', (event) => {
+        toolsDiv.style.display = 'flex';
+        listDiv.style.display = 'flex';
+        unhideDiv.style.display = 'none';
+        
+        event.stopPropagation(); // Prevent event bubbling
+    });
+
+    hideDiv.addEventListener('click', (event) => {
+        toolsDiv.style.display = 'none';
+        listDiv.style.display = 'none';
+        unhideDiv.style.display = 'block';
+
+    })
 
     copyDiv.addEventListener('click', (event) => {
 
@@ -778,7 +824,6 @@ function addClipboardListItem(text,item_color,bg_color) {
     // Create choices
     let colorchoices = [];
     colorchoices = ["Black", "Blue", "Red", "Green"];
-    console.log(colorchoices);
     colorchoices.forEach((value, key) => {
         var option = document.createElement("option");
         option.value = value.toLowerCase();
