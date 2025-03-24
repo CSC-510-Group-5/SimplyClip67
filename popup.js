@@ -358,10 +358,6 @@ function addClipboardImageItem(imageDataUrl) {
     downArrowImage.addEventListener("click", () => {
       moveImageItemDown(imageDataUrl);
     });
-
-    translateImage.addEventListener("click", () =>{
-        translateItem()
-    });
   }
   
   function deleteImageItem(imageDataUrl) {
