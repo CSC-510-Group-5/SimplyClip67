@@ -623,10 +623,14 @@ function addClipboardListItem(text,item_color,bg_color) {
     textColorSelect.setAttribute("id", "color");
     textColorSelect.classList.add("color");
     textColorSelect.classList.add("dropdown");
-    textColorSelect.style.width = "20px";
-    textColorSelect.style.height = "22px";
+    textColorSelect.style.width = '0';
+    textColorSelect.style.height = '0';
+    textColorSelect.style.opacity = '0';
     colorTabsDiv.appendChild(textColorImage);
     colorTabsDiv.appendChild(textColorSelect);
+    textColorImage.addEventListener('click', (event) => {
+        textColorSelect.showPicker();
+    });
 
     var bgColorSelect = document.createElement('select');
     bgColorSelect.classList.add('dropdown');
@@ -634,10 +638,14 @@ function addClipboardListItem(text,item_color,bg_color) {
     bgColorSelect.setAttribute("id", "bg-color");
     bgColorSelect.classList.add("color");
     bgColorSelect.classList.add("dropdown");
-    bgColorSelect.style.width = "20px";
-    bgColorSelect.style.height = "22px";
-    colorTabsDiv.appendChild(bgColorImage);
+    bgColorSelect.style.width = '0';
+    bgColorSelect.style.height = '0';
+    bgColorSelect.style.opacity = '0';
+    bgcolorTabsDiv.appendChild(bgColorImage);
     bgcolorTabsDiv.appendChild(bgColorSelect);
+    bgColorImage.addEventListener('click', (event) => {
+        bgColorSelect.showPicker();
+    });
 
     citDiv.appendChild(citImage);
     upArrowDiv.appendChild(upArrowImage);
