@@ -727,20 +727,20 @@ function addClipboardListItem(text,item_color,bg_color) {
     //         });
     //     })
     // })   
+    // Add event listener to the unhide button
+    unhideDiv.addEventListener('click', (event) => {
+        toolsDiv.style.display = 'flex';
+        listDiv.style.display = 'flex';
+        unhideDiv.style.display = 'none';
+        
+        event.stopPropagation(); // Prevent event bubbling
+    });
 
     hideDiv.addEventListener('click', (event) => {
         toolsDiv.style.display = 'none';
         listDiv.style.display = 'none';
         unhideDiv.style.display = 'block';
 
-        // Add event listener to the unhide button
-        unhideDiv.addEventListener('click', (event) => {
-            toolsDiv.style.display = 'flex';
-            listDiv.style.display = 'flex';
-            unhideDiv.style.display = 'none';
-            
-            event.stopPropagation(); // Prevent event bubbling
-        });
     })
 
     copyDiv.addEventListener('click', (event) => {
