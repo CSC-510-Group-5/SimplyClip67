@@ -295,10 +295,12 @@ function addClipboardImageItem(imageDataUrl) {
       upArrowDiv = document.createElement("div"),
       downArrowDiv = document.createElement("div"),
       contentDiv = document.createElement("div"),
+      translateDiv = document.createElement("div"),
       imageElement = document.createElement("img"),
       deleteImage = document.createElement("img"),
       upArrowImage = document.createElement("img"),
-      downArrowImage = document.createElement("img");
+      downArrowImage = document.createElement("img"),
+      translateImage = document.createElement("img");
   
     imageElement.src = imageDataUrl;
     imageElement.style.maxWidth = "100%";
@@ -325,15 +327,22 @@ function addClipboardImageItem(imageDataUrl) {
     downArrowImage.classList.add("downArrow");
     downArrowImage.setAttribute("data-toggle", "tooltip");
     downArrowImage.setAttribute("title", "Click to move down the image entry!");
+
+    translateImage.src = "./images/googletranslate.png";
+    translateImage.classList.add("translate");
+    translateImage.setAttribute("data-toggle", "tooltip");
+    translateImage.setAttribute("title", "Click to translate the image entry!");
   
     deleteDiv.appendChild(deleteImage);
     upArrowDiv.appendChild(upArrowImage);
     downArrowDiv.appendChild(downArrowImage);
+    translateDiv.appendChild(translateImage);
   
     contentDiv.appendChild(listDiv);
     contentDiv.appendChild(deleteDiv);
     contentDiv.appendChild(upArrowDiv);
     contentDiv.appendChild(downArrowDiv);
+    contentDiv.appendChild(translateDiv);
     contentDiv.classList.add("content");
     listItem.appendChild(contentDiv);
     _clipboardList.appendChild(listItem);
@@ -525,6 +534,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     downArrowDiv = document.createElement("div"),
     citDiv = document.createElement("div"),
     hideDiv = document.createElement("div"),
+    translateDiv = document.createElement("div"),
     
     copyImage = document.createElement("img"),
     editImage = document.createElement("img"),
@@ -536,6 +546,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     downArrowImage = document.createElement("img");
     hideImage = document.createElement("img");
     unhideImage = document.createElement("img");
+    translateImage = document.createElement("img");
 
     //highlightButton = document.createElement("button"),
     // summDiv = document.createElement("div")
@@ -587,6 +598,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     downArrowImage.src = '/images/flaticons/double-down-arrow.png';
     hideImage.src = '/images/flaticons/hidesource.png';
     unhideImage.src = '/images/flaticons/reveal.png';
+    translateImage.src = './images/googletranslate.png';
     // summImage.src = './images/summarizer.png';
     // summImage.classList.add("summarize");
 
@@ -603,6 +615,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     unhideDiv.style.alignItems = 'center';
     unhideDiv.style.justifyContent = 'flex-end'; // Right alignment
     unhideImage.style.marginRight = '10px'; // Keep right margin for spacing
+    translateDiv.appendChild(translateImage);
 
     var textColorSelect = document.createElement('select');
     textColorSelect.classList.add('dropdown');
@@ -640,6 +653,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     upArrowDiv.classList.add("tool-wrapper");
     downArrowDiv.classList.add("tool-wrapper");
     hideDiv.classList.add("tool-wrapper")
+    translateDiv.classList.add("tool-wrapper");
     toolsDiv.appendChild(selectDiv);
     toolsDiv.appendChild(copyDiv);
     toolsDiv.appendChild(editDiv);
@@ -650,6 +664,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     toolsDiv.appendChild(upArrowDiv);
     toolsDiv.appendChild(downArrowDiv);
     toolsDiv.appendChild(hideDiv)
+    toolsDiv.appendChild(translateDiv);
     contentDiv.appendChild(toolsDiv);
     contentDiv.appendChild(unhideDiv)
 
@@ -703,6 +718,9 @@ function addClipboardListItem(text,item_color,bg_color) {
     unhideDiv.setAttribute("data-placement", "bottom");
     unhideDiv.setAttribute("title", "Unhide");
     unhideDiv.style.display = 'none';
+    translateDiv.setAttribute("data-toggle", "tooltip");
+    translateDiv.setAttribute("data-placement", "bottom");
+    translateDiv.setAttribute("title", "Translate Entry");
 
     // summImage = document.createElement("img");
     // summImage.setAttribute("data-toggle", "tooltip");
@@ -797,6 +815,10 @@ function addClipboardListItem(text,item_color,bg_color) {
     deleteDiv.addEventListener('click', (event) => {
         console.log("Delete clicked");
         deleteElem(text);
+    })
+
+    translateDiv.addEventListener("click", () => {
+        tryTranslate(text);
     })
 
     // Create choices
@@ -1186,6 +1208,50 @@ function highlightMatches(searchTerm) {
     });
 }
 
+const langOptions = {
+    'en': 'English',
+    'es': 'Spanish',
+    'fr': 'French',
+    'de': 'German',
+    'zh-CN': 'Chinese',
+    'ja': 'Japanese'
+};
+
+function tryTranslate(text) {
+    const options = Object.entries(langOptions).map(([code, name]) => `${code}: ${name}`).join('\n');
+    const sourceLangCode = prompt(`Enter source language code:\n${options}`, "es");
+    const langCode = prompt(`Enter language code to translate to:\n${options}`, "en");
+
+    
+    if (langCode && langOptions[langCode] && sourceLangCode && langOptions[sourceLangCode]) {
+      translateElem(text, langCode, sourceLangCode);
+    } else if (langCode || sourceLangCode) {
+      alert("Invalid code. Please try again.");
+    }
+}
+
+function translateElem(text, langCode, sourceLangCode) {
+    chrome.storage.sync.get(['lists', 'listcolor', 'listbgcolor', 'activeList'], clipboard => {
+        let lists = clipboard.lists;
+        let activeList = clipboard.activeList || 'Default';
+        let list = lists[activeList];
+        let colordata = clipboard.listcolor || { 'Default': [] };
+        let bgcolordata = clipboard.listbgcolor || { 'Default': [] };
+        if (colordata[activeList] == undefined) colordata[activeList] = [];
+        if (bgcolordata[activeList] == undefined) bgcolordata[activeList] = [];
+        let index = list.indexOf(text);
+        fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLangCode}&tl=${langCode}&dt=t&q=${encodeURIComponent(text)}`)
+        .then(res => res.json())
+        .then(data => {
+            list[index] = data[0][0][0];
+            // Save the updated list and refresh UI
+            chrome.storage.sync.set({ "lists": lists }, function () {
+                _clipboardList.innerHTML = ""; // Clear UI
+                getClipboardText(); // Reload updated list
+            });
+        });
+    });
+}
 
 function deleteElem(text){ 
     chrome.storage.sync.get(['lists','listcolor','listbgcolor','activeList'], clipboard => {
