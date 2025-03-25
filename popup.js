@@ -23,6 +23,13 @@ checkbox.addEventListener('click',checkMode)
 
 let _clipboardList = document.querySelector("#clipboard_list");
 let addButton = document.getElementById('add-btn');
+let log_string = "";
+
+function add_log(tmp){
+    log_string.concat(tmp)
+    log_string.concat("/n")
+    console.log("add log called")
+}
 
 function doDjangoCall(type, url, data, callback) {
     var xmlhttp = new XMLHttpRequest();
@@ -108,7 +115,7 @@ addButton.addEventListener('click', (event) => {
 
         })
 
-        
+        //add_log(textitem, "  tmp")
         addClipboardListItem(textitem)
     }
 )
@@ -215,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function getClipboardText() {
-
+    //add_log("getting clipboard text" + Date.now())
     chrome.storage.sync.get(["lists", "activeList", "listcolor","listbgcolor"], clipboard => {
         let lists = clipboard.lists || { "Default": [] };
         let activeList = clipboard.activeList || "Default";
@@ -494,6 +501,7 @@ function addClipboardListItem(text,item_color,bg_color) {
 
     let { sourceUrl, imageUrl, isVideo, type } = getThumbnail(text);
     console.log("Thumbnail details:", { sourceUrl, imageUrl, isVideo, type });
+    //add_log("Thumbnail details:" + { sourceUrl, imageUrl, isVideo, type });
     let listItem = document.createElement("li");
     let iconImage = document.createElement("img");
 
@@ -701,6 +709,7 @@ function addClipboardListItem(text,item_color,bg_color) {
         navigator.clipboard.writeText(listPara.textContent)
             .then(() => {
                 console.log(`Text saved to clipboard`,listPara.textContent);
+                //add_log(`Text saved to clipboard` + listPara.textContent);
             });
         let x = document.getElementById("snackbar");
         x.className = "show";
@@ -749,6 +758,7 @@ function addClipboardListItem(text,item_color,bg_color) {
 
     deleteDiv.addEventListener('click', (event) => {
         console.log("Delete clicked");
+        //add_log("Delete clicked");
         deleteElem(text);
     })
 
@@ -756,6 +766,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     let colorchoices = [];
     colorchoices = ["Black", "Blue", "Red", "Green"];
     console.log(colorchoices);
+    //add_log(colorchoices);
     colorchoices.forEach((value, key) => {
         var option = document.createElement("option");
         option.value = value.toLowerCase();
@@ -785,8 +796,9 @@ function addClipboardListItem(text,item_color,bg_color) {
 
         console.log(event.target.value);
         selected_color = event.target.value;
-
+        //add_log("Color changed: " + event.target.value);
         console.log(event);
+        //add_log(event);
         //Change text color based on selected option
         listPara.style.color = selected_color;
 
@@ -817,8 +829,9 @@ function addClipboardListItem(text,item_color,bg_color) {
 
         console.log(event.target.value);
         selected_color = event.target.value;
-
+        //add_log("Color changed: " + event.target.value);
         console.log(event);
+        //add_log(event);
         //Change text color based on selected option
         listPara.style.backgroundColor = selected_color;
 
@@ -881,7 +894,7 @@ function addClipboardListItem(text,item_color,bg_color) {
     citDiv.addEventListener('click', (event) => {
         console.log("Citation button clicked");
         let inputText = listPara.textContent.trim();
-        
+        //add_log("Citation button clicked");
         doDjangoCall(
             "POST",
             "http://127.0.0.1:8000/text/getcitation",
@@ -893,6 +906,7 @@ function addClipboardListItem(text,item_color,bg_color) {
                 // Copy the citation to the clipboard
                 navigator.clipboard.writeText(citationText).then(function() {
                 console.log('Citation copied to clipboard');
+                //add_log('Citation copied to clipboard');
                 showSnackbar('Citation copied to clipboard!');
                 }, function(err) {
                 console.error('Could not copy citation: ', err);
@@ -909,6 +923,7 @@ function addClipboardListItem(text,item_color,bg_color) {
 
     upArrowDiv.addEventListener('click', (event) => {
         console.log("Up arrow clicked");
+        ////add_log("Up arrow clicked");
         chrome.storage.sync.get(['lists','listcolor','listbgcolor','activeList'], clipboard => {
             let lists = clipboard.lists || {'Default':[]};
             let activeList = clipboard.activeList || 'Default'
@@ -957,6 +972,7 @@ function addClipboardListItem(text,item_color,bg_color) {
 
     downArrowDiv.addEventListener('click', (event) => {
         console.log("Down arrow clicked");
+        ////add_log("Down arrow clicked");
         chrome.storage.sync.get(['lists','listcolor','listbgcolor','activeList'], clipboard => {
             let lists = clipboard.lists || {'Default':[]};
             let activeList = clipboard.activeList || 'Default';
@@ -1007,6 +1023,7 @@ function addClipboardListItem(text,item_color,bg_color) {
 
     if (imageUrl.length > 0) {
         console.log("IMage Url found")
+        ////add_log("IMage Url found")
         if(imageUrl.includes("youtube.com"))
         {
             imagePopup.src = './images/youtube_icon.png';
@@ -1045,7 +1062,7 @@ function addClipboardListItem(text,item_color,bg_color) {
 // Add event listener for the new summarization button
 document.getElementById("summarize-btn").addEventListener("click", () => {
     console.log("Summarize button clicked");
-
+    ////add_log("Summarize button clicked");
     chrome.storage.sync.get(["lists", "activeList"], (data) => {
         let lists = data.lists || { "Default": [] };
         let activeList = data.activeList || "Default";
@@ -1243,6 +1260,7 @@ function downloadClipboardTextAsDoc(){
             if (list === undefined || list.length === 0) {
                 emptyDiv.classList.remove('hide-div');
                 console.log("Nothing to download")
+               // //add_log("Nothing to download");
             }
             else {
                 var list_of_items = []
@@ -1255,11 +1273,13 @@ function downloadClipboardTextAsDoc(){
                 if (typeof summList !== undefined){
                     summList.forEach(item => {
                         console.log(item);
+                        ////add_log(item);
                         list_of_items = list_of_items + item + "\n\n"
                     });
                 if (typeof citList !== undefined){
                     citList.forEach(item => {
                         console.log(item);
+                        ////add_log(item);
                         list_of_items = list_of_items + item + "\n\n"
                     });
 

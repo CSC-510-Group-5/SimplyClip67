@@ -18,9 +18,11 @@
  *SOFTWARE.
  */
 
+
  let _previousData = "";
  let _maxListSize = 100;
  let time_interval_set = undefined;
+ let log_string = "";
  
  const readClipboardData = () => {
    chrome.storage.local.get('enabled', data => {
@@ -65,6 +67,9 @@
          imageList.unshift(imageDataUrl);
          chrome.storage.local.set({ 'imageList': imageList }, () => {
            console.log("Debug: Image pushed to imageList");
+           log_string = log_string + Date().toLocaleString() + ":   " + ("Debug: Image pushed to imageList");
+           log_string = log_string + "\n"
+           console.log("log string: " + log_string);
          });
        }
      };
@@ -92,6 +97,12 @@
           lists[activeList].unshift(clipText);
           chrome.storage.sync.set({ "lists": lists }, function () {
               console.log(`Text saved under '${activeList}' list.`);
+              log_string = log_string + Date().toLocaleString() + ":   " + clipText;
+              log_string = log_string + "\n"
+              log_string = log_string + Date().toLocaleString() + ":   " + (`Text saved under '${activeList}' list.`);
+              log_string = log_string + "\n"
+              console.log("log string: " + log_string);
+
           });
       }
   });
