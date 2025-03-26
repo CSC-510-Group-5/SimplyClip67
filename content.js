@@ -23,7 +23,23 @@
  let _maxListSize = 100;
  let time_interval_set = undefined;
  let log_string = "";
- 
+
+ function add_log(text){
+    log_string = log_string + Date().toLocaleString() + ":  "+ text + "\n";
+ }
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log("button clicked");
+  if (message.type === "requestVariable") {
+    console.log("Received request for variable from popup.js");
+    sendResponse({ value: log_string }); // Send the variable back to popup.js
+  }
+});
+
+
+
+
  const readClipboardData = () => {
    chrome.storage.local.get('enabled', data => {
      if (data.enabled == true) {
@@ -67,8 +83,7 @@
          imageList.unshift(imageDataUrl);
          chrome.storage.local.set({ 'imageList': imageList }, () => {
            console.log("Debug: Image pushed to imageList");
-           log_string = log_string + Date().toLocaleString() + ":   " + ("Debug: Image pushed to imageList");
-           log_string = log_string + "\n"
+           add_log("Debug: Image pushed to imageList");
            console.log("log string: " + log_string);
          });
        }
@@ -97,10 +112,8 @@
           lists[activeList].unshift(clipText);
           chrome.storage.sync.set({ "lists": lists }, function () {
               console.log(`Text saved under '${activeList}' list.`);
-              log_string = log_string + Date().toLocaleString() + ":   " + clipText;
-              log_string = log_string + "\n"
-              log_string = log_string + Date().toLocaleString() + ":   " + (`Text saved under '${activeList}' list.`);
-              log_string = log_string + "\n"
+              add_log(clipText);
+              add_log(`Text saved under '${activeList}' list.`);
               console.log("log string: " + log_string);
 
           });

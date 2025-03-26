@@ -23,13 +23,6 @@ checkbox.addEventListener('click',checkMode)
 
 let _clipboardList = document.querySelector("#clipboard_list");
 let addButton = document.getElementById('add-btn');
-let log_string = "";
-
-function add_log(tmp){
-    log_string.concat(tmp)
-    log_string.concat("/n")
-    console.log("add log called")
-}
 
 function doDjangoCall(type, url, data, callback) {
     var xmlhttp = new XMLHttpRequest();
@@ -129,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const listDropdown = document.getElementById("listDropdown");
     const createListButton = document.getElementById("createList");
     const deleteListButton = document.getElementById("deleteList");
+
 
     // Load lists and active list
     chrome.storage.sync.get(["lists", "activeList"], function (data) {
@@ -1548,3 +1542,42 @@ let textArea = document.querySelector("#searchText");
 textArea.oninput = () => {
     textArea.style.height = (textArea.scrollHeight)+"px";
 }
+
+let downloadLogButton = document.getElementById("downloadLog");
+
+downloadLogButton.addEventListener("click", () => {
+  // Request the variable from content.js
+  chrome.runtime.sendMessage({ type: "requestVariable" }, (response) => {
+    if (chrome.runtime.lastError) {
+      console.error("Error:", chrome.runtime.lastError.message);
+    } else {
+      const variableContent = response.value || "Default Content";
+      console.log("Received variable from content.js:", variableContent);
+
+      // Trigger the download using the received variable
+      downloadStringAsFile(variableContent);
+    }
+  });
+});
+
+
+function downloadStringAsFile(log_string) {
+   const blob = new Blob([log_string], { type: "text/plain" }); // Create a Blob with the string
+   const url = URL.createObjectURL(blob); // Create a temporary URL for the Blob
+
+   chrome.downloads.download({
+     url: url, // Use the Blob URL
+     filename: "log_file.txt", // Name of the file to be downloaded
+     saveAs: true // Prompt the user for the file location
+   }, (downloadId) => {
+     if (chrome.runtime.lastError) {
+       console.error("Error:", chrome.runtime.lastError.message);
+     } else {
+       console.log("Download started with ID:", downloadId);
+     }
+     URL.revokeObjectURL(url); // Clean up the temporary URL
+   });
+ };
+
+
+
