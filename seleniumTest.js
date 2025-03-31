@@ -3,7 +3,7 @@ let webdriver = require("selenium-webdriver");
 let chromedriver = require('chromedriver');
 let chrome = require("selenium-webdriver/chrome");
 const {Key,
-    By} = require("selenium-webdriver");
+    By, Builder} = require("selenium-webdriver");
     
     describe('Verify setup with Google Search',function() {
     it('browser should open', async function () {
@@ -13,7 +13,7 @@ const {Key,
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -46,7 +46,7 @@ describe('Check browser copy functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -81,7 +81,7 @@ describe('Check simply clip functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -121,7 +121,7 @@ describe('Check sorting functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -148,7 +148,7 @@ describe('Check Document export functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -175,7 +175,7 @@ describe('Check edit text functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -202,7 +202,7 @@ describe('Check the color tab functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -240,7 +240,7 @@ describe('Check citation functionality',function() {
             .addArguments('--user-data-dir=/Users/risha/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -268,7 +268,7 @@ describe('Check Merge functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -301,7 +301,7 @@ describe('Check Summarize functionality',function() {
             .addArguments('--user-data-dir=/Users/risha/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -328,7 +328,7 @@ describe('Check Citation for each text functionality',function() {
             .addArguments('--user-data-dir=/Users/risha/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -355,7 +355,7 @@ describe('Check dark mode functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -381,7 +381,7 @@ describe('Check dark mode functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -411,7 +411,7 @@ describe('Check dark mode functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -441,7 +441,7 @@ describe('Check dark mode functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -470,7 +470,7 @@ describe('Check dark mode functionality',function() {
             .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
-        const driver = new webdriver.Builder()
+        const driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(options)
             .build();
@@ -720,7 +720,7 @@ it('should change checkbox state after clicking the checkbox', async function() 
 
  
  beforeEach(async function() {
-    driver = new webdriver.Builder().forBrowser('chrome').build();
+    driver = new Builder().forBrowser('chrome').build();
     await driver.get('chrome-extension://enhklaokeppjnodgbckcefjeapppjeeg/popup.html');
 });
 
@@ -927,8 +927,8 @@ it('should only show search results from the active list', async function() {
 
 
 // TESTS FOR BG COLOR
-const { Builder, By, until } = require('selenium-webdriver');
-const assert = require('assert');
+// const { Builder, By, until } = require('selenium-webdriver');
+// const assert = require('assert');
 
 let driver;
 
@@ -1101,4 +1101,208 @@ it('should disable background color selection when "lock" option is enabled', as
     const body = await driver.findElement(By.tagName('body'));
     const bgColor = await body.getCssValue('background-color');
     assert.notStrictEqual(bgColor, 'rgba(0, 0, 255, 1)', "Background color changed despite being locked");
+});
+
+describe('CSC510 Group 5 Testing', () => {
+    // 1. Tooltip variant test with alternate tooltip text
+    it('should display alternate tooltip when hovering over the element', async function() {
+        const element = await driver.findElement(By.id('hoverElementAlt'));
+        await driver.actions().move({ origin: element }).perform();
+        const tooltip = await driver.findElement(By.id('tooltipAlt')).getText();
+        assert.strictEqual(tooltip, "Alternate Tooltip Text");
+    });
+
+    // 2. Invalid search query variant test
+    it('should display no results for an invalid search query variant', async function() {
+        await driver.findElement(By.id('searchBox')).sendKeys('nonexistent query');
+        await driver.findElement(By.id('searchBtn')).click();
+        const noResultsMessage = await driver.findElement(By.id('noResults')).getText();
+        assert.strictEqual(noResultsMessage, "No match found");
+    });
+
+    // 3. Valid search query variant test
+    it('should return results for a valid search query variant', async function() {
+        await driver.findElement(By.id('searchBox')).sendKeys('another test query');
+        await driver.findElement(By.id('searchBtn')).click();
+        const searchResults = await driver.findElements(By.css('.search-result'));
+        assert(searchResults.length > 0, "Expected search results not found");
+    });
+
+    // 4. Layout adjustment test variant (expecting column instead of row)
+    it('should adjust layout to column on window resize', async function() {
+        await driver.manage().window().setSize(800, 600);
+        const layoutStyle = await driver.findElement(By.id('layout')).getCssValue('flex-direction');
+        assert.strictEqual(layoutStyle, 'column');
+    });
+
+    // 5. Dropdown selection test variant
+    it('should select an option "Option 3" from the dropdown', async function() {
+        const dropdown = await driver.findElement(By.id('dropdown'));
+        await dropdown.sendKeys('Option 3');
+        const selectedOption = await dropdown.getAttribute('value');
+        assert.strictEqual(selectedOption, 'Option 3');
+    });
+
+    // 6. Responsive layout test variant for mobile view
+    it('should have a responsive layout on mobile with header font-size 14px', async function() {
+        await driver.manage().window().setSize(375, 667);
+        const header = await driver.findElement(By.id('header')).getCssValue('font-size');
+        assert.strictEqual(header, '14px');
+    });
+
+    // 7. Sorting test variant with new expected first item text
+    it('should sort items in ascending order with new expectation', async function() {
+        const sortButton = await driver.findElement(By.id('sortAscBtn'));
+        await sortButton.click();
+        const firstItem = await driver.findElement(By.css('.item:first-child')).getText();
+        assert.strictEqual(firstItem, 'New Expected First Item');
+    });
+
+    // 8. Clipboard copy test variant with different expected snippet content
+    it('should copy the selected snippet to clipboard with variant content', async function() {
+        const snippet = await driver.findElement(By.css('.snippetVariant'));
+        await snippet.click();
+        const copyButton = await driver.findElement(By.id('copyBtnVariant'));
+        await copyButton.click();
+        const clipboardContent = await driver.executeScript('return navigator.clipboard.readText();');
+        assert.strictEqual(clipboardContent, 'Alternate snippet content');
+    });
+
+    // 9. Text highlighting variant test with cyan highlight
+    it('should highlight selected text in the snippet with cyan highlight', async function() {
+        const snippet = await driver.findElement(By.css('.snippetVariant'));
+        await snippet.click();
+        const textToHighlight = await driver.findElement(By.xpath("//span[text()='emphasize me']"));
+        await driver.actions().move({ origin: textToHighlight }).click().perform();
+        const highlightedText = await textToHighlight.getCssValue('background-color');
+        assert.strictEqual(highlightedText, 'rgb(0, 255, 255)'); // Cyan highlight
+    });
+
+    // 10. Text color change variant test with a different hex code
+    it('should change the text color of the snippet to a different shade', async function() {
+        const snippet = await driver.findElement(By.css('.snippetVariant'));
+        await snippet.click();
+        const colorButton = await driver.findElement(By.id('colorBtnVariant'));
+        await colorButton.click();
+        const colorPicker = await driver.findElement(By.id('colorPickerVariant'));
+        await colorPicker.sendKeys('#33cc33');
+        const textColor = await snippet.getCssValue('color');
+        assert.strictEqual(textColor, 'rgb(51, 204, 51)');
+    });
+
+    // 11. Element background color change variant test
+    it('should change the element background color to a new value after button click', async function() {
+        const button = await driver.findElement(By.id('colorChangeBtnVariant'));
+        const element = await driver.findElement(By.id('colorElementVariant'));
+        const initialColor = await element.getCssValue('background-color');
+        await button.click();
+        const updatedColor = await element.getCssValue('background-color');
+        assert.notStrictEqual(updatedColor, initialColor, "Background color was not updated");
+    });
+
+    // 12. Input focus variant test with modified element IDs
+    it('should focus on the input field when the focus button is clicked (variant)', async function() {
+        const focusButton = await driver.findElement(By.id('focusBtnVariant'));
+        const inputField = await driver.findElement(By.id('inputFieldVariant'));
+        const isFocusedBefore = await inputField.isFocused();
+        assert.strictEqual(isFocusedBefore, false, "Input field should not be focused initially");
+        await focusButton.click();
+        const isFocusedAfter = await inputField.isFocused();
+        assert.strictEqual(isFocusedAfter, true, "Input field was not focused after clicking");
+    });
+
+    // 13. Element attribute update variant test with new expected attribute value
+    it('should update the element attribute to "enabled" when button is clicked', async function() {
+        const updateAttributeButton = await driver.findElement(By.id('updateAttrBtnVariant'));
+        const element = await driver.findElement(By.id('elementWithAttrVariant'));
+        const initialAttribute = await element.getAttribute('data-status');
+        assert.strictEqual(initialAttribute, 'disabled', "Initial attribute value is not as expected");
+        await updateAttributeButton.click();
+        const updatedAttribute = await element.getAttribute('data-status');
+        assert.strictEqual(updatedAttribute, 'enabled', "Attribute value was not updated correctly");
+    });
+
+    // 14. Text update variant test with different new text
+    it('should update the text content when the variant button is clicked', async function() {
+        const button = await driver.findElement(By.id('updateTextBtnVariant'));
+        const textElement = await driver.findElement(By.id('textElementVariant'));
+        const initialText = await textElement.getText();
+        assert.strictEqual(initialText, "Old Variant Text");
+        await button.click();
+        const updatedText = await textElement.getText();
+        assert.strictEqual(updatedText, "New Variant Text", "Text content was not updated as expected");
+    });
+
+    // 15. Checkbox state change variant test
+    it('should change checkbox state after clicking the variant checkbox', async function() {
+        const checkbox = await driver.findElement(By.id('checkboxVariant'));
+        const isCheckedBefore = await checkbox.isSelected();
+        assert.strictEqual(isCheckedBefore, false, "Checkbox should be initially unchecked");
+        await checkbox.click();
+        const isCheckedAfter = await checkbox.isSelected();
+        assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
+    });
+
+    // 16. New list creation variant test with list name "Alternate List"
+    it('should create a new list named "Alternate List"', async function() {
+        const newListButton = await driver.findElement(By.id('createListVariant'));
+        await driver.executeScript("window.prompt = function() { return 'Alternate List'; }");
+        await newListButton.click();
+        const listOptions = await driver.findElements(By.css("#listDropdownVariant option"));
+        let found = false;
+        for (let option of listOptions) {
+            if ((await option.getText()) === "Alternate List") {
+                found = true;
+                break;
+            }
+        }
+        assert(found, "Alternate list creation failed");
+    });
+
+    // 17. Duplicate disallow test variant for list name "Admin"
+    it('should not allow creating a list named "Admin"', async function() {
+        const newListButton = await driver.findElement(By.id('createListVariant'));
+        await driver.executeScript("window.prompt = function() { return 'Admin'; }");
+        await newListButton.click();
+        const listOptions = await driver.findElements(By.css("#listDropdownVariant option"));
+        let adminCount = 0;
+        for (let option of listOptions) {
+            if ((await option.getText()) === "Admin") {
+                adminCount++;
+            }
+        }
+        assert.strictEqual(adminCount, 0, "List named 'Admin' should not be allowed");
+    });
+
+    // 18. Duplicate list creation variant test for "Repeat List"
+    it('should not allow creating a duplicate list named "Repeat List"', async function() {
+        const newListButton = await driver.findElement(By.id('createListVariant'));
+        await driver.executeScript("window.prompt = function() { return 'Repeat List'; }");
+        await newListButton.click();
+        await newListButton.click();
+        const listOptions = await driver.findElements(By.css("#listDropdownVariant option"));
+        let repeatCount = 0;
+        for (let option of listOptions) {
+            if ((await option.getText()) === "Repeat List") {
+                repeatCount++;
+            }
+        }
+        assert.strictEqual(repeatCount, 1, "Duplicate list 'Repeat List' was created");
+    });
+
+    // 19. Adding copied text to active list variant test
+    it('should add copied text to the active list in the variant', async function() {
+        const addButton = await driver.findElement(By.id("add-btnVariant"));
+        await addButton.click();
+        const clipboardItems = await driver.findElements(By.css("#clipboard_listVariant li"));
+        assert(clipboardItems.length > 0, "Copied text not added in variant active list");
+    });
+
+    // 20. Adding a new row to active list variant test
+    it('should add a new row to the active list in variant', async function() {
+        const addButton = await driver.findElement(By.id("add-btnVariant"));
+        await addButton.click();
+        const clipboardItems = await driver.findElements(By.css("#clipboard_listVariant li"));
+        assert(clipboardItems.length >= 1, "New row was not added to the variant active list");
+    });
 });
