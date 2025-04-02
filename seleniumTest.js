@@ -487,69 +487,106 @@ describe('Check dark mode functionality',function() {
      }).timeout(10000);
  });
 
- // Test Cases- Ryan Gallagher 
- it('should store data in chrome.storage', function(done) {
+ it('should store data in chrome.storage', async function() {
+    const testKey = 'testKey';
+    const testValue = 'testValue';
+    const result = await driver.executeScript(() => {
+        return new Promise((resolve, reject) => {
+            if (!chrome.storage) {
+                return reject(new Error("chrome.storage is undefined"));
+            }
+            chrome.storage.local.set({ testKey: "testValue" }, () => {
+                chrome.storage.local.get(["testKey"], (result) => {
+                    resolve(result.testKey);
+                });
+            });
+        });
+    });
+    assert.strictEqual(result, testValue, 'Data was not stored correctly');
+});
+
+
+it('should retrieve data from chrome.storage', async function() {
     const testKey = 'testKey';
     const testValue = 'testValue';
     
-    chrome.storage.local.set({ [testKey]: testValue }, function() {
-        chrome.storage.local.get([testKey], function(result) {
-            assert.strictEqual(result[testKey], testValue, 'Data was not stored correctly');
-            done();
+    const result = await driver.executeScript(() => {
+        return new Promise((resolve, reject) => {
+            if (!chrome.storage) {
+                return reject(new Error("chrome.storage is undefined"));
+            }
+            chrome.storage.local.set({ testKey: "testValue" }, () => {
+                chrome.storage.local.get(["testKey"], (result) => {
+                    resolve(result.testKey);
+                });
+            });
         });
     });
+
+    assert.strictEqual(result, testValue, 'Data was not retrieved correctly');
 });
 
-it('should retrieve data from chrome.storage', function(done) {
-    const testKey = 'testKey';
-    const testValue = 'testValue';
-    
-    chrome.storage.local.set({ [testKey]: testValue }, function() {
-        chrome.storage.local.get([testKey], function(result) {
-            assert.strictEqual(result[testKey], testValue, 'Data was not retrieved correctly');
-            done();
-        });
-    });
-});
-
-it('should return undefined for a non-existent key', function(done) {
+it('should return null for a non-existent key', async function() {
     const nonExistentKey = 'nonExistentKey';
-    
-    chrome.storage.local.get([nonExistentKey], function(result) {
-        assert.strictEqual(result[nonExistentKey], undefined, 'Non-existent key should return undefined');
-        done();
+
+    const result = await driver.executeScript(() => {
+        return new Promise((resolve, reject) => {
+            if (!chrome.storage) {
+                return reject(new Error("chrome.storage is undefined"));
+            }
+            chrome.storage.local.get(["nonExistentKey"], (result) => {
+                resolve(result.nonExistentKey);
+            });
+        });
     });
+
+    assert.strictEqual(result, null, 'Non-existent key should return undefined');
 });
 
-it('should store data asynchronously and retrieve it later', function(done) {
+it('should store data asynchronously and retrieve it later', async function() {
     const testKey = 'asyncKey';
     const testValue = 'asyncValue';
-    
-    chrome.storage.local.set({ [testKey]: testValue }, function() {
-        setTimeout(function() {
-            chrome.storage.local.get([testKey], function(result) {
-                assert.strictEqual(result[testKey], testValue, 'Data was not stored/retrieved correctly asynchronously');
-                done();
+
+    const result = await driver.executeScript(() => {
+        return new Promise((resolve, reject) => {
+            if (!chrome.storage) {
+                return reject(new Error("chrome.storage is undefined"));
+            }
+            chrome.storage.local.set({ asyncKey: "asyncValue" }, () => {
+                setTimeout(() => {
+                    chrome.storage.local.get(["asyncKey"], (result) => {
+                        resolve(result.asyncKey);
+                    });
+                }, 100);
             });
-        }, 100);  // Delay to simulate async behavior
+        });
     });
+
+    assert.strictEqual(result, testValue, 'Data was not stored/retrieved correctly asynchronously');
 });
 
-it('should overwrite data in chrome.storage when setting a new value for an existing key', function(done) {
+it('should overwrite data in chrome.storage when setting a new value for an existing key', async function() {
     const testKey = 'conflictKey';
     const initialValue = 'initialValue';
     const newValue = 'newValue';
-    
-    chrome.storage.local.set({ [testKey]: initialValue }, function() {
-        chrome.storage.local.set({ [testKey]: newValue }, function() {
-            chrome.storage.local.get([testKey], function(result) {
-                assert.strictEqual(result[testKey], newValue, 'Data was not overwritten correctly');
-                done();
+
+    const result = await driver.executeScript(() => {
+        return new Promise((resolve, reject) => {
+            if (!chrome.storage) {
+                return reject(new Error("chrome.storage is undefined"));
+            }
+            chrome.storage.local.set({ conflictKey: "initialValue" }, () => {
+                chrome.storage.local.set({ conflictKey: "newValue" }, () => {
+                    chrome.storage.local.get(["conflictKey"], (result) => {
+                        resolve(result.conflictKey);
+                    });
+                });
             });
         });
     });
-});
 
+    assert.strictEqual(result, newValue, 'Data was not overwritten correctly');
+});
 
 it('should display tooltip when hovering over the element', async function() {
     const element = await driver.findElement(By.id('hoverElement'));
