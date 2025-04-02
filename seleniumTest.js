@@ -755,6 +755,7 @@ const getExtensionId = async (driver) => {
  beforeEach(async function() {
     CONFIG = require('./test_config.json')
     const options = new chrome.Options();
+    options.addArguments("--headless=new");
     driver = new Builder()
         .forBrowser('chrome')
         .setChromeOptions(options.addArguments("load-extension=" + CONFIG.extensionPath))
