@@ -10,7 +10,6 @@ const {Key,
         this.timeout(10000);
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -43,7 +42,6 @@ describe('Check browser copy functionality',function() {
 
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -78,7 +76,6 @@ describe('Check simply clip functionality',function() {
     it('copied text should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -118,8 +115,6 @@ describe('Check sorting functionality',function() {
     it('copied text should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
-
         // Initialise driver to launch Chrome
         const driver = new Builder()
             .forBrowser('chrome')
@@ -145,7 +140,6 @@ describe('Check Document export functionality',function() {
     it('copied text should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -172,7 +166,6 @@ describe('Check edit text functionality',function() {
     it('copied text should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -199,7 +192,6 @@ describe('Check the color tab functionality',function() {
     it('the text within the chosen dialogue box is of the selected color.', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -265,7 +257,6 @@ describe('Check Merge functionality',function() {
     it('copied text should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -352,7 +343,6 @@ describe('Check dark mode functionality',function() {
     it('copied text should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -378,7 +368,6 @@ describe('Check dark mode functionality',function() {
     it('summarization should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -408,7 +397,6 @@ describe('Check dark mode functionality',function() {
     it('citation should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -438,7 +426,6 @@ describe('Check dark mode functionality',function() {
     it('document download should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -467,7 +454,6 @@ describe('Check dark mode functionality',function() {
     it('merge should exist in SimplyClip clipboard', async function () {
         // Open the Chrome Browser with a custom profile
         const options = new chrome.Options()
-            .addArguments('--user-data-dir=/Users/ejazahmed/Desktop');
 
         // Initialise driver to launch Chrome
         const driver = new Builder()
@@ -720,8 +706,13 @@ it('should change checkbox state after clicking the checkbox', async function() 
 
  
  beforeEach(async function() {
-    driver = new Builder().forBrowser('chrome').build();
-    await driver.get('chrome-extension://enhklaokeppjnodgbckcefjeapppjeeg/popup.html');
+    CONFIG = require('./test_config.json')
+    const options = new chrome.Options();
+    driver = new Builder()
+        .forBrowser('chrome')
+        .setChromeOptions(options.addArguments("load-extension=" + CONFIG.extensionPath))
+        .build();
+    await driver.get('chrome-extension://gheagldmollogdehjfojghkkjijbmail/popup.html');
 });
 
 afterEach(async function() {
@@ -929,17 +920,6 @@ it('should only show search results from the active list', async function() {
 // TESTS FOR BG COLOR
 // const { Builder, By, until } = require('selenium-webdriver');
 // const assert = require('assert');
-
-let driver;
-
-beforeEach(async function() {
-    driver = new Builder().forBrowser('chrome').build();
-    await driver.get('chrome-extension://enhklaokeppjnodgbckcefjeapppjeeg/popup.html');
-});
-
-afterEach(async function() {
-    await driver.quit();
-});
 
 it('should change background color to red', async function() {
     const colorButton = await driver.findElement(By.id('color-red'));

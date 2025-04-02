@@ -166,3 +166,6 @@ simplyclip_backend/simplyclip_backend/__pycache__
 simplyclip_backend/textanalysis/__pycache__
 
 .DS_Store
+
+#test-config file
+test_config.json
