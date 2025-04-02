@@ -699,12 +699,24 @@ it('should change checkbox state after clicking the checkbox', async function() 
     assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
 });
 
+let extensionId = undefined;
 
+const getExtensionId = async (driver) => {
+    if (extensionId) return extensionId;
+    await driver.get("chrome://extensions/");
+    await driver.sleep(1000);
+    extensionId = await driver.executeScript(() => {
+        const manager = document.querySelector('extensions-manager')?.shadowRoot;
+        const extensionsList = manager.querySelector('extensions-item-list')?.shadowRoot;
+        const extensions = extensionsList.querySelectorAll('extensions-item');
+        if(extensions && extensions[0]) {
+            return extensions[0].id;
+        }
+        return undefined;
+    });
+    return extensionId;
+};
 
-
-
-
- 
  beforeEach(async function() {
     CONFIG = require('./test_config.json')
     const options = new chrome.Options();
@@ -712,7 +724,8 @@ it('should change checkbox state after clicking the checkbox', async function() 
         .forBrowser('chrome')
         .setChromeOptions(options.addArguments("load-extension=" + CONFIG.extensionPath))
         .build();
-    await driver.get('chrome-extension://gheagldmollogdehjfojghkkjijbmail/popup.html');
+    const id = await getExtensionId(driver);
+    await driver.get(`chrome-extension://${id}/popup.html`);
 });
 
 afterEach(async function() {
