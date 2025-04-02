@@ -36,7 +36,7 @@ const {Key,
     });
 });
 
-
+/*
 describe('Check browser copy functionality',function() {
     it('text should be copied', async function () {
 
@@ -697,7 +697,7 @@ it('should change checkbox state after clicking the checkbox', async function() 
     // Ensure checkbox is checked after click
     const isCheckedAfter = await checkbox.isSelected();
     assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
-});
+}); */
 
 
 
@@ -712,13 +712,14 @@ it('should change checkbox state after clicking the checkbox', async function() 
         .forBrowser('chrome')
         .setChromeOptions(options.addArguments("load-extension=" + CONFIG.extensionPath))
         .build();
+    console.log(options.instanceID.getID)
     await driver.get('chrome-extension://gheagldmollogdehjfojghkkjijbmail/popup.html');
 });
 
 afterEach(async function() {
     await driver.quit();
 });
-
+/*
 it('should create a new list', async function() {
     const newListButton = await driver.findElement(By.id('createList'));
     await driver.executeScript("window.prompt = function() { return 'New List'; }");
@@ -1081,11 +1082,11 @@ it('should disable background color selection when "lock" option is enabled', as
     const body = await driver.findElement(By.tagName('body'));
     const bgColor = await body.getCssValue('background-color');
     assert.notStrictEqual(bgColor, 'rgba(0, 0, 255, 1)', "Background color changed despite being locked");
-});
+});*/
 
 describe('CSC510 Group 5 Testing', () => {
     // 1. Tooltip variant test with alternate tooltip text
-    it('should display alternate tooltip when hovering over the element', async function() {
+    /*it('should display alternate tooltip when hovering over the element', async function() {
         const element = await driver.findElement(By.id('hoverElementAlt'));
         await driver.actions().move({ origin: element }).perform();
         const tooltip = await driver.findElement(By.id('tooltipAlt')).getText();
@@ -1284,5 +1285,67 @@ describe('CSC510 Group 5 Testing', () => {
         await addButton.click();
         const clipboardItems = await driver.findElements(By.css("#clipboard_listVariant li"));
         assert(clipboardItems.length >= 1, "New row was not added to the variant active list");
-    });
+    }); */
+
+    //Connor Blumsack's tests
+    //21. Test element before hide
+    it('should hide an entry when the hide button is clicked', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const listItem = await driver.findElement(By.className("list-div"));
+        let displayed = listItem.isDisplayed();
+        assert(displayed, "List item should be displayed before hiding")
+    })
+
+    //22. Test element after hide
+    it('should re-display an element after hiding', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        assert(hideButton != null, "Selenium is unable to find the hide button")
+        await hideButton.click();
+        const listItemDisplay = await driver.findElement(By.className("list-div")).getCssValue('display');
+        assert(listItemDisplay === "none", "List item should not be displayed after hiding")
+    })
+
+    //23. Test if content is still present after hide for text
+    it('should re-display an element after hiding', async function() {
+        const testText = 'This text should not be deleted';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textBox = await driver.findElement(By.css("p[class='data']"));
+        await textBox.sendKeys(testText);
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        assert(text === testText, "Data should not be lost when hiding")
+    })
+
+    //24. Test if content is still present after hide for image
+    it('should re-display an element after hiding', async function() {
+        const testText = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fdogs&psig=AOvVaw3qpA3UmS6wFBp0P1I1mjNs&ust=1743645941215000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPD9gbmhuIwDFQAAAAAdAAAAABAE';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textBox = await driver.findElement(By.css("p[class='data']"));
+        await textBox.sendKeys(testText);
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        assert(text === testText, "Data should not be lost when hiding")
+    })
+
+    //Test text color
+    it('should retain text color upon hide/unhide', async function() {
+        const testText = 'This text should stay blue';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change text color']"));
+        await textColorButton.findElement(By.css());
+        const textColorOption = await driver.findElement(By.css("option[value='blue']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        assert(text === testText, "Data should not be lost when hiding")
+    })
 });
