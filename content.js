@@ -30,9 +30,9 @@
 
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("button clicked");
+  //console.log("button clicked");
   if (message.type === "requestVariable") {
-    console.log("Received request for variable from popup.js");
+    //console.log("Received request for variable from popup.js");
     sendResponse({ value: log_string }); // Send the variable back to popup.js
   }
 });
@@ -82,7 +82,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
        if (!imageList.includes(imageDataUrl)) {
          imageList.unshift(imageDataUrl);
          chrome.storage.local.set({ 'imageList': imageList }, () => {
-           console.log("Debug: Image pushed to imageList");
+           //console.log("Debug: Image pushed to imageList");
            add_log("Debug: Image pushed to imageList");
            console.log("log string: " + log_string);
          });
@@ -111,7 +111,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (!lists[activeList].includes(clipText)) {
           lists[activeList].unshift(clipText);
           chrome.storage.sync.set({ "lists": lists }, function () {
-              console.log(`Text saved under '${activeList}' list.`);
+              //console.log(`Text saved under '${activeList}' list.`);
               add_log(clipText);
               add_log(`Text saved under '${activeList}' list.`);
               console.log("log string: " + log_string);

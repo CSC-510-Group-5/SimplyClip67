@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const listDropdown = document.getElementById("listDropdown");
     const createListButton = document.getElementById("createList");
     const deleteListButton = document.getElementById("deleteList");
-
+    const downloadLogButton = document.getElementById("downloadLog");
 
     // Load lists and active list
     chrome.storage.sync.get(["lists", "activeList"], function (data) {
@@ -203,6 +203,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
         }
+    });
+
+
+    //Download Log Button
+    downloadLogButton.addEventListener("click", () => {
+      //console.log("download button click event");
+      // Request the variable from content.js
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs[0];
+        chrome.tabs.sendMessage(tab.id, { type: "requestVariable" }, (response) => {
+            //console.log("send message event");
+            if (chrome.runtime.lastError) {
+                  console.error("Error:", chrome.runtime.lastError.message);
+                  //console.log("error in send message");
+                  return
+            }
+            const variableContent = response.value || "Default Content";
+            //console.log("Received variable from content.js:", variableContent);
+
+            // Trigger the download using the received variable
+            downloadStringAsFile(variableContent);
+
+        });
+      });
     });
 });
 
@@ -1543,22 +1567,7 @@ textArea.oninput = () => {
     textArea.style.height = (textArea.scrollHeight)+"px";
 }
 
-let downloadLogButton = document.getElementById("downloadLog");
 
-downloadLogButton.addEventListener("click", () => {
-  // Request the variable from content.js
-  chrome.runtime.sendMessage({ type: "requestVariable" }, (response) => {
-    if (chrome.runtime.lastError) {
-      console.error("Error:", chrome.runtime.lastError.message);
-    } else {
-      const variableContent = response.value || "Default Content";
-      console.log("Received variable from content.js:", variableContent);
-
-      // Trigger the download using the received variable
-      downloadStringAsFile(variableContent);
-    }
-  });
-});
 
 
 function downloadStringAsFile(log_string) {
