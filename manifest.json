@@ -21,7 +21,7 @@
     "default_title": "SimplyClip",
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "tabs", "clipboardRead", "clipboardWrite", "activeTab", "contextMenus","http://127.0.0.1/*"]
+  "permissions": ["storage", "tabs", "clipboardRead", "clipboardWrite", "activeTab", "contextMenus","http://127.0.0.1/*","downloads", "scripting"]
 }
 
 

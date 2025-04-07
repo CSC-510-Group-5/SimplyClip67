@@ -1,3 +1,4 @@
+
 chrome.contextMenus.create({
     title: "Save Image to SimplyClip",
     contexts: ["image"],

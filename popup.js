@@ -108,7 +108,6 @@ addButton.addEventListener('click', (event) => {
 
         })
 
-        
         addClipboardListItem(textitem)
     }
 )
@@ -122,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const listDropdown = document.getElementById("listDropdown");
     const createListButton = document.getElementById("createList");
     const deleteListButton = document.getElementById("deleteList");
+    const downloadLogButton = document.getElementById("downloadLog");
 
     // Load lists and active list
     chrome.storage.sync.get(["lists", "activeList"], function (data) {
@@ -203,6 +203,26 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
+
+
+    //Download Log Button
+    downloadLogButton.addEventListener("click", () => {
+      // Request the variable from content.js
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs[0];
+        chrome.tabs.sendMessage(tab.id, { type: "requestVariable" }, (response) => {
+            if (chrome.runtime.lastError) {
+                  console.error("Error:", chrome.runtime.lastError.message);
+                  return
+            }
+            const variableContent = response.value || "Default Content";
+
+            // Trigger the download using the received variable
+            downloadStringAsFile(variableContent);
+
+        });
+      });
+    });
 });
 
 
@@ -215,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function getClipboardText() {
-
     chrome.storage.sync.get(["lists", "activeList", "listcolor","listbgcolor"], clipboard => {
         let lists = clipboard.lists || { "Default": [] };
         let activeList = clipboard.activeList || "Default";
@@ -861,7 +880,6 @@ function addClipboardListItem(text,item_color,bg_color) {
 
         console.log(event.target.value);
         selected_color = event.target.value;
-
         console.log(event);
         //Change text color based on selected option
         listPara.style.color = selected_color;
@@ -893,7 +911,6 @@ function addClipboardListItem(text,item_color,bg_color) {
 
         console.log(event.target.value);
         selected_color = event.target.value;
-
         console.log(event);
         //Change text color based on selected option
         listPara.style.backgroundColor = selected_color;
@@ -957,7 +974,6 @@ function addClipboardListItem(text,item_color,bg_color) {
     citDiv.addEventListener('click', (event) => {
         console.log("Citation button clicked");
         let inputText = listPara.textContent.trim();
-        
         doDjangoCall(
             "POST",
             "http://127.0.0.1:8000/text/getcitation",
@@ -968,7 +984,6 @@ function addClipboardListItem(text,item_color,bg_color) {
             if (citationText) {
                 // Copy the citation to the clipboard
                 navigator.clipboard.writeText(citationText).then(function() {
-                console.log('Citation copied to clipboard');
                 showSnackbar('Citation copied to clipboard!');
                 }, function(err) {
                 console.error('Could not copy citation: ', err);
@@ -1121,7 +1136,6 @@ function addClipboardListItem(text,item_color,bg_color) {
 // Add event listener for the new summarization button
 document.getElementById("summarize-btn").addEventListener("click", () => {
     console.log("Summarize button clicked");
-
     chrome.storage.sync.get(["lists", "activeList"], (data) => {
         let lists = data.lists || { "Default": [] };
         let activeList = data.activeList || "Default";
@@ -1648,3 +1662,45 @@ let textArea = document.querySelector("#searchText");
 textArea.oninput = () => {
     textArea.style.height = (textArea.scrollHeight)+"px";
 }
+
+
+
+
+function downloadStringAsFile(log_string) {
+   const blob = new Blob([log_string], { type: "text/plain" }); // Create a Blob with the string
+   const url = URL.createObjectURL(blob); // Create a temporary URL for the Blob
+   let log_suf = getFormattedTimestamp();
+   let file_name = "simply_clip_log_" + log_suf + ".txt";
+
+   chrome.downloads.download({
+     url: url, // Use the Blob URL
+     filename: file_name, // Name of the file to be downloaded
+     saveAs: true // Prompt the user for the file location
+   }, (downloadId) => {
+     if (chrome.runtime.lastError) {
+       console.error("Error:", chrome.runtime.lastError.message);
+     } else {
+       console.log("Download started with ID:", downloadId);
+     }
+     URL.revokeObjectURL(url); // Clean up the temporary URL
+   });
+ };
+
+ function getFormattedTimestamp() {
+   const now = new Date();
+
+   const pad = (num) => num.toString().padStart(2, '0');
+
+   const mm = pad(now.getMonth() + 1); // Months are zero-based
+   const dd = pad(now.getDate());
+   const yy = now.getFullYear().toString().slice(-2);
+
+   const hh = pad(now.getHours());
+   const min = pad(now.getMinutes());
+   const ss = pad(now.getSeconds());
+
+   return `${mm}${dd}${yy}_${hh}${min}${ss}`;
+ }
+
+
+
