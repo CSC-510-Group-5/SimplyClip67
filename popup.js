@@ -1573,10 +1573,12 @@ textArea.oninput = () => {
 function downloadStringAsFile(log_string) {
    const blob = new Blob([log_string], { type: "text/plain" }); // Create a Blob with the string
    const url = URL.createObjectURL(blob); // Create a temporary URL for the Blob
+   let log_suf = getFormattedTimestamp();
+   let file_name = "simply_clip_log_" + log_suf + ".txt";
 
    chrome.downloads.download({
      url: url, // Use the Blob URL
-     filename: "log_file.txt", // Name of the file to be downloaded
+     filename: file_name, // Name of the file to be downloaded
      saveAs: true // Prompt the user for the file location
    }, (downloadId) => {
      if (chrome.runtime.lastError) {
@@ -1587,6 +1589,22 @@ function downloadStringAsFile(log_string) {
      URL.revokeObjectURL(url); // Clean up the temporary URL
    });
  };
+
+ function getFormattedTimestamp() {
+   const now = new Date();
+
+   const pad = (num) => num.toString().padStart(2, '0');
+
+   const mm = pad(now.getMonth() + 1); // Months are zero-based
+   const dd = pad(now.getDate());
+   const yy = now.getFullYear().toString().slice(-2);
+
+   const hh = pad(now.getHours());
+   const min = pad(now.getMinutes());
+   const ss = pad(now.getSeconds());
+
+   return `${mm}${dd}${yy}_${hh}${min}${ss}`;
+ }
 
 
 
