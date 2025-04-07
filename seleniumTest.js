@@ -699,9 +699,23 @@ it('should change checkbox state after clicking the checkbox', async function() 
     assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
 }); */
 
-
-
-
+let extensionId = undefined;
+ 
+ const getExtensionId = async (driver) => {
+     if (extensionId) return extensionId;
+     await driver.get("chrome://extensions/");
+     await driver.sleep(1000);
+     extensionId = await driver.executeScript(() => {
+         const manager = document.querySelector('extensions-manager')?.shadowRoot;
+         const extensionsList = manager.querySelector('extensions-item-list')?.shadowRoot;
+         const extensions = extensionsList.querySelectorAll('extensions-item');
+         if(extensions && extensions[0]) {
+             return extensions[0].id;
+         }
+         return undefined;
+     });
+     return extensionId;
+ };
 
 
  
@@ -712,8 +726,8 @@ it('should change checkbox state after clicking the checkbox', async function() 
         .forBrowser('chrome')
         .setChromeOptions(options.addArguments("load-extension=" + CONFIG.extensionPath))
         .build();
-    console.log(options.instanceID.getID)
-    await driver.get('chrome-extension://gheagldmollogdehjfojghkkjijbmail/popup.html');
+    const id = await getExtensionId(driver);
+    await driver.get(`chrome-extension://${id}/popup.html`);
 });
 
 afterEach(async function() {
@@ -1334,18 +1348,245 @@ describe('CSC510 Group 5 Testing', () => {
         assert(text === testText, "Data should not be lost when hiding")
     })
 
-    //Test text color
+    //25. Test text color
     it('should retain text color upon hide/unhide', async function() {
         const testText = 'This text should stay blue';
         const addButton = await driver.findElement(By.id("add-btn"));
         await addButton.click();
         const textColorButton = await driver.findElement(By.css("div[title='Change text color']"));
-        await textColorButton.findElement(By.css());
-        const textColorOption = await driver.findElement(By.css("option[value='blue']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='blue']"));
         await textColorOption.click();
         const hideButton = await driver.findElement(By.css("div[title='Hide']"));
         await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']")).getText();
-        assert(text === testText, "Data should not be lost when hiding")
+        let value = text.getCssValue('color');
+        assert(value === 'blue', "Data should not be lost when hiding")
+    })
+
+    //26. Test text color black
+    it('should retain text color upon hide/unhide for black', async function() {
+        const testText = 'This text should stay black';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change text color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='black']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('color');
+        assert(value === 'black', "Data should not be lost when hiding")
+    })
+
+    //27. Test text color red
+    it('should retain text color upon hide/unhide for red', async function() {
+        const testText = 'This text should stay red';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change text color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='red']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('color');
+        assert(value === 'red', "Data should not be lost when hiding")
+    })
+
+    //28. Test text color green
+    it('should retain text color upon hide/unhide for green', async function() {
+        const testText = 'This text should stay green';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change text color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='green']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('color');
+        assert(value === 'green', "Data should not be lost when hiding")
+    })
+
+    //29. Test background color white
+    it('should retain bg color upon hide/unhide for white', async function() {
+        const testText = 'This background should stay white';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change bg color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='#ffffff']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('background-color');
+        assert(value === 'white', "Data should not be lost when hiding")
+    })
+
+    //30. Test background color sky
+    it('should retain bg color upon hide/unhide for sky', async function() {
+        const testText = 'This background should stay sky';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change bg color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='#CCF1FF']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('background-color');
+        assert(value === 'sky', "Data should not be lost when hiding")
+    })
+
+    //31. Test background color purple
+    it('should retain bg color upon hide/unhide for purple', async function() {
+        const testText = 'This background should stay purple';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change bg color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='#E0D7FF']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('background-color');
+        assert(value === 'purple', "Data should not be lost when hiding")
+    })
+
+    //32. Test background color green
+    it('should retain bg color upon hide/unhide for green', async function() {
+        const testText = 'This background should stay green';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change bg color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='#ccffcc']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('background-color');
+        assert(value === 'green', "Data should not be lost when hiding")
+    })
+    
+
+    //33. Test background color yellow
+    it('should retain bg color upon hide/unhide for yellow', async function() {
+        const testText = 'This background should stay yelllow';
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const textColorButton = await driver.findElement(By.css("div[title='Change bg color']"));
+        const textColorOption = await textColorButton.findElement(By.css("option[value='#fffacc']"));
+        await textColorOption.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let value = text.getCssValue('background-color');
+        assert(value === 'yellow', "Data should not be lost when hiding")
+    })
+
+    //34. Test hiding multiple elements
+    it('should be able to hide multiple elements', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        await addButton.click()
+        const hideButtons = await driver.findElements(By.css("div[title='Hide']"));
+        assert(hideButton != null, "Selenium is unable to find the hide button")
+        await hideButtons[0].click();
+        await hideButtons[1].click();
+        const listItemDisplay = await driver.findElements(By.className("list-div"))
+        const disp1 = listItemDisplay[0].getCssValue('display');
+        const disp2 = listItemDisplay[1].getCssValue('display');
+        assert(disp1 === "none", "List item should not be displayed after hiding")
+        assert(disp2 === "none", "List item should not be displayed after hiding")
+    })
+
+    //35. Test delete
+    it('should delete list elements', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const deleteButton = await driver.findElements(By.css("div[title='Delete Entry']"));
+        await deleteButton.click()
+        const listItemDisplay = await driver.findElement(By.className("list-div"));
+        assert(listItemDisplay == null)
+    })
+
+    //36. Test delete after hide
+    it('should delete list elements', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        const deleteButton = await driver.findElements(By.css("div[title='Delete Entry']"));
+        await deleteButton.click()
+        const listItemDisplay = await driver.findElement(By.className("list-div"));
+        assert(listItemDisplay == null)
+    })
+
+    //37. Ensure that edit tool is still present after hide
+    it('should still have edit in toolbar after hide', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        const editButton = await driver.findElements(By.css("div[title='Edit entry']"));
+        assert(editButton != null)
+    })
+
+    //38. Ensure that citation tool is still present after hide
+    it('should still have citation in toolbar after hide', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        const citationButton = await driver.findElements(By.css("div[title='Generate Citations']"));
+        assert(citationButton != null)
+    })
+
+    //39. Ensure that move up tool is still present after hide
+    it('should still have move up in toolbar after hide', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        const moveButton = await driver.findElements(By.css("div[title='Move Up']"));
+        assert(moveButton != null)
+    })
+
+    //40. Ensure that move down tool is still present after hide
+    it('should still have move down in toolbar after hide', async function() {
+        const addButton = await driver.findElement(By.id("add-btn"));
+        await addButton.click();
+        const hideButton = await driver.findElement(By.css("div[title='Hide']"));
+        await hideButton.click();
+        const uhideButton = await driver.findElement(By.className("unhide"));
+        await uhideButton.click();
+        const moveButton = await driver.findElements(By.css("div[title='Move Down']"));
+        assert(moveButton != null)
     })
 });
