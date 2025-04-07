@@ -208,19 +208,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Download Log Button
     downloadLogButton.addEventListener("click", () => {
-      //console.log("download button click event");
       // Request the variable from content.js
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const tab = tabs[0];
         chrome.tabs.sendMessage(tab.id, { type: "requestVariable" }, (response) => {
-            //console.log("send message event");
             if (chrome.runtime.lastError) {
                   console.error("Error:", chrome.runtime.lastError.message);
-                  //console.log("error in send message");
                   return
             }
             const variableContent = response.value || "Default Content";
-            //console.log("Received variable from content.js:", variableContent);
 
             // Trigger the download using the received variable
             downloadStringAsFile(variableContent);
