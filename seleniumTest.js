@@ -1,4 +1,5 @@
 const assert = require('assert');
+const { By, until } = require('selenium-webdriver');
 let webdriver = require("selenium-webdriver");
 let chromedriver = require('chromedriver');
 let chrome = require("selenium-webdriver/chrome");
