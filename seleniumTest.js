@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { By, until } = require('selenium-webdriver');
 let webdriver = require("selenium-webdriver");
 let chromedriver = require('chromedriver');
 let chrome = require("selenium-webdriver/chrome");
@@ -1297,29 +1296,24 @@ describe('CSC510 Group 5 Testing', () => {
     });
 
     it('should contain a download log button', async function () {
-            await driver.wait(until.elementLocated(By.id('downloadLog')), 3000);
             const downloadButton = await driver.findElement(By.id('downloadLog'));
             const isDisplayed = await downloadButton.isDisplayed();
             assert.strictEqual(isDisplayed, true, 'Download button is not visible on the popup');
     });
 
     it('should contain a create list button', async function () {
-                await driver.wait(until.elementLocated(By.id('createList')), 3000);
                 const downloadButton = await driver.findElement(By.id('createList'));
                 const isDisplayed = await downloadButton.isDisplayed();
                 assert.strictEqual(isDisplayed, true, 'Create List button is not visible on the popup');
     });
 
     it('should contain a delete list button', async function () {
-                await driver.wait(until.elementLocated(By.id('deleteList')), 3000);
                 const downloadButton = await driver.findElement(By.id('deleteList'));
                 const isDisplayed = await downloadButton.isDisplayed();
                 assert.strictEqual(isDisplayed, true, 'Delete List button is not visible on the popup');
     });
 
     it('should click the downloadLog button and trigger the downloader handler', async function () {
-        // Wait for the button
-        await driver.wait(until.elementLocated(By.id('downloadLog')), 3000);
 
         // Click the button
         const downloadButton = await driver.findElement(By.id('downloadLog'));
