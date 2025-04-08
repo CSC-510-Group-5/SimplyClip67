@@ -18,10 +18,26 @@
  *SOFTWARE.
  */
 
+
  let _previousData = "";
  let _maxListSize = 100;
  let time_interval_set = undefined;
- 
+ let log_string = "";
+
+ function add_log(text){
+    log_string = log_string + Date().toLocaleString() + ":  "+ text + "\n";
+ }
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "requestVariable") {
+    sendResponse({ value: log_string }); // Send the variable back to popup.js
+  }
+});
+
+
+
+
  const readClipboardData = () => {
    chrome.storage.local.get('enabled', data => {
      if (data.enabled == true) {
@@ -64,7 +80,8 @@
        if (!imageList.includes(imageDataUrl)) {
          imageList.unshift(imageDataUrl);
          chrome.storage.local.set({ 'imageList': imageList }, () => {
-           console.log("Debug: Image pushed to imageList");
+           add_log("Debug: Image pushed to imageList");
+           console.log("log string: " + log_string);
          });
        }
      };
@@ -91,7 +108,10 @@
       if (!lists[activeList].includes(clipText)) {
           lists[activeList].unshift(clipText);
           chrome.storage.sync.set({ "lists": lists }, function () {
-              console.log(`Text saved under '${activeList}' list.`);
+              add_log(clipText);
+              add_log(`Text saved under '${activeList}' list.`);
+              console.log("log string: " + log_string);
+
           });
       }
   });
