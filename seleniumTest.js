@@ -1295,6 +1295,42 @@ describe('CSC510 Group 5 Testing', () => {
         assert.strictEqual(themeSetting, 'dark', 'Settings did not persist after refresh');
     });
 
+    it('should contain a download log button', async function () {
+            await driver.wait(until.elementLocated(By.id('downloadLog')), 3000);
+            const downloadButton = await driver.findElement(By.id('downloadLog'));
+            const isDisplayed = await downloadButton.isDisplayed();
+            assert.strictEqual(isDisplayed, true, 'Download button is not visible on the popup');
+    });
+
+    it('should contain a create list button', async function () {
+                await driver.wait(until.elementLocated(By.id('createList')), 3000);
+                const downloadButton = await driver.findElement(By.id('createList'));
+                const isDisplayed = await downloadButton.isDisplayed();
+                assert.strictEqual(isDisplayed, true, 'Create List button is not visible on the popup');
+    });
+
+    it('should contain a delete list button', async function () {
+                await driver.wait(until.elementLocated(By.id('deleteList')), 3000);
+                const downloadButton = await driver.findElement(By.id('deleteList'));
+                const isDisplayed = await downloadButton.isDisplayed();
+                assert.strictEqual(isDisplayed, true, 'Delete List button is not visible on the popup');
+    });
+
+    it('should click the downloadLog button and trigger the downloader handler', async function () {
+        // Wait for the button
+        await driver.wait(until.elementLocated(By.id('downloadLog')), 3000);
+
+        // Click the button
+        const downloadButton = await driver.findElement(By.id('downloadLog'));
+        await downloadButton.click();
+
+        // Optional: Wait for a change in the DOM (e.g. a confirmation message, download link, etc.)
+        // Example: check for an element with id "downloadStatus"
+        const status = await driver.wait(until.elementLocated(By.id('downloadStatus')), 2000);
+        const statusText = await status.getText();
+        assert.ok(statusText.includes('Download started'), 'Expected download status message not found');
+    });
+
     // it('should not allow creating a list with an empty name', async function () {
     //     const newListButton = await driver.findElement(By.id('createList'));
     //     await driver.executeScript("window.prompt = function() { return ''; }");
