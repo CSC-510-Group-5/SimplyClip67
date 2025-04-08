@@ -36,7 +36,7 @@ const {Key,
     });
 });
 
-/*
+
 describe('Check browser copy functionality',function() {
     it('text should be copied', async function () {
 
@@ -697,25 +697,25 @@ it('should change checkbox state after clicking the checkbox', async function() 
     // Ensure checkbox is checked after click
     const isCheckedAfter = await checkbox.isSelected();
     assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
-}); */
+}); 
 
 let extensionId = undefined;
  
- const getExtensionId = async (driver) => {
-     if (extensionId) return extensionId;
-     await driver.get("chrome://extensions/");
-     await driver.sleep(1000);
-     extensionId = await driver.executeScript(() => {
-         const manager = document.querySelector('extensions-manager')?.shadowRoot;
-         const extensionsList = manager.querySelector('extensions-item-list')?.shadowRoot;
-         const extensions = extensionsList.querySelectorAll('extensions-item');
-         if(extensions && extensions[0]) {
-             return extensions[0].id;
-         }
-         return undefined;
-     });
-     return extensionId;
- };
+
+const getExtensionId = async (driver) => {
+    if (extensionId) return extensionId;
+    await driver.get("chrome://extensions/");
+    extensionId = await driver.executeScript(() => {
+        const manager = document.querySelector('extensions-manager')?.shadowRoot;
+        const extensionsList = manager.querySelector('extensions-item-list')?.shadowRoot;
+        const extensions = extensionsList.querySelectorAll('extensions-item');
+        if(extensions && extensions[0]) {
+            return extensions[0].id;
+        }
+        return undefined;
+    });
+    return extensionId;
+};
 
 
  
@@ -733,7 +733,7 @@ let extensionId = undefined;
 afterEach(async function() {
     await driver.quit();
 });
-/*
+
 it('should create a new list', async function() {
     const newListButton = await driver.findElement(By.id('createList'));
     await driver.executeScript("window.prompt = function() { return 'New List'; }");
@@ -1096,11 +1096,11 @@ it('should disable background color selection when "lock" option is enabled', as
     const body = await driver.findElement(By.tagName('body'));
     const bgColor = await body.getCssValue('background-color');
     assert.notStrictEqual(bgColor, 'rgba(0, 0, 255, 1)', "Background color changed despite being locked");
-});*/
+});
 
 describe('CSC510 Group 5 Testing', () => {
     // 1. Tooltip variant test with alternate tooltip text
-    /*it('should display alternate tooltip when hovering over the element', async function() {
+    it('should display alternate tooltip when hovering over the element', async function() {
         const element = await driver.findElement(By.id('hoverElementAlt'));
         await driver.actions().move({ origin: element }).perform();
         const tooltip = await driver.findElement(By.id('tooltipAlt')).getText();
@@ -1299,7 +1299,7 @@ describe('CSC510 Group 5 Testing', () => {
         await addButton.click();
         const clipboardItems = await driver.findElements(By.css("#clipboard_listVariant li"));
         assert(clipboardItems.length >= 1, "New row was not added to the variant active list");
-    }); */
+    }); 
 
     //Connor Blumsack's tests
     //21. Test element before hide
