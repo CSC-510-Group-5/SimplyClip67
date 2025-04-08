@@ -1319,9 +1319,6 @@ describe('CSC510 Group 5 Testing', () => {
         const downloadButton = await driver.findElement(By.id('downloadLog'));
         await downloadButton.click();
 
-        // Optional: Wait for a change in the DOM (e.g. a confirmation message, download link, etc.)
-        // Example: check for an element with id "downloadStatus"
-        const status = await driver.wait(until.elementLocated(By.id('downloadStatus')), 2000);
         const statusText = await status.getText();
         assert.ok(statusText.includes('Download started'), 'Expected download status message not found');
     });
