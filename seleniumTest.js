@@ -1565,7 +1565,7 @@ describe('CSC510 Group 5 Testing', () => {
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
         let value = await driver.findElement(By.css("p[class='data']")).getCssValue('color');
-        assert.strictEqual(value, 'blue')
+        assert.strictEqual(value, 'rgba(0, 0, 255, 1)')
     })
 
     //26. Test text color black
@@ -1581,7 +1581,7 @@ describe('CSC510 Group 5 Testing', () => {
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
         let value = await driver.findElement(By.css("p[class='data']")).getCssValue('color');
-        assert(value == 'black', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgba(0, 0, 0, 1)', "Data should not be lost when hiding")
     })
 
     //27. Test text color red
@@ -1598,7 +1598,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']"));
         let value = text.getCssValue('color');
-        assert(value === 'red', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgba(255, 0, 0, 1)', "Data should not be lost when hiding")
     })
 
     //28. Test text color green
@@ -1615,7 +1615,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']"));
         let value = text.getCssValue('color');
-        assert(value === 'green', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgba(0, 255, 0, 1)', "Data should not be lost when hiding")
     })
 
     //29. Test background color white
@@ -1632,7 +1632,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']")).getText();
         let value = text.getCssValue('background-color');
-        assert(value === 'white', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgba(255, 255, 255, 1)', "Data should not be lost when hiding")
     })
 
     //30. Test background color sky
@@ -1649,7 +1649,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']")).getText();
         let value = text.getCssValue('background-color');
-        assert(value === 'sky', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgb(204, 241, 255)', "Data should not be lost when hiding")
     })
 
     //31. Test background color purple
@@ -1666,7 +1666,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']")).getText();
         let value = text.getCssValue('background-color');
-        assert(value === 'purple', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgb(224, 215, 255)', "Data should not be lost when hiding")
     })
 
     //32. Test background color green
@@ -1683,7 +1683,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']")).getText();
         let value = text.getCssValue('background-color');
-        assert(value === 'green', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgb(204, 255, 204)', "Data should not be lost when hiding")
     })
     
 
@@ -1701,7 +1701,7 @@ describe('CSC510 Group 5 Testing', () => {
         await uhideButton.click();
         let text = await driver.findElement(By.css("p[class='data']")).getText();
         let value = text.getCssValue('background-color');
-        assert(value === 'yellow', "Data should not be lost when hiding")
+        assert.strictEqual(value,'rgb(255, 250, 204)', "Data should not be lost when hiding")
     })
 
     //34. Test hiding multiple elements
@@ -1716,8 +1716,8 @@ describe('CSC510 Group 5 Testing', () => {
         const listItemDisplay = await driver.findElements(By.className("list-div"))
         const disp1 = listItemDisplay[0].getCssValue('display');
         const disp2 = listItemDisplay[1].getCssValue('display');
-        assert(disp1 === "none", "List item should not be displayed after hiding")
-        assert(disp2 === "none", "List item should not be displayed after hiding")
+        assert.strictEqual(disp1,"none", "List item should not be displayed after hiding")
+        assert.strictEqual(disp2,"none", "List item should not be displayed after hiding")
     })
 
     //35. Test delete
