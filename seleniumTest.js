@@ -1565,8 +1565,7 @@ describe('CSC510 Group 5 Testing', () => {
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
         let value = await driver.findElement(By.css("p[class='data']")).getCssValue('color');
-        let expectedColor = 'blue'
-        assert(value == 'blue', "%o", {value, expectedColor})
+        assert.strictEqual(value, 'blue')
     })
 
     //26. Test text color black
