@@ -1295,6 +1295,8 @@ describe('CSC510 Group 5 Testing', () => {
         assert.strictEqual(themeSetting, 'dark', 'Settings did not persist after refresh');
     });
 
+
+
     // it('should not allow creating a list with an empty name', async function () {
     //     const newListButton = await driver.findElement(By.id('createList'));
     //     await driver.executeScript("window.prompt = function() { return ''; }");
