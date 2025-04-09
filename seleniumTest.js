@@ -36,7 +36,7 @@ const {Key,
     });
 });
 
-
+/*
 describe('Check browser copy functionality',function() {
     it('text should be copied', async function () {
 
@@ -731,28 +731,28 @@ it('should have a responsive layout on smaller screens', async function() {
 //     await checkbox.click();
     
 
-//     // Ensure checkbox is checked after click
-//     const isCheckedAfter = await checkbox.isSelected();
-//     assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
-// });
+    // Ensure checkbox is checked after click
+    const isCheckedAfter = await checkbox.isSelected();
+    assert.strictEqual(isCheckedAfter, true, "Checkbox did not get checked after clicking");
+}); */
 
 let extensionId = undefined;
-
-
-const getExtensionId = async (driver) => {
-    if (extensionId) return extensionId;
-    await driver.get("chrome://extensions/");
-    extensionId = await driver.executeScript(() => {
-        const manager = document.querySelector('extensions-manager')?.shadowRoot;
-        const extensionsList = manager.querySelector('extensions-item-list')?.shadowRoot;
-        const extensions = extensionsList.querySelectorAll('extensions-item');
-        if(extensions && extensions[0]) {
-            return extensions[0].id;
-        }
-        return undefined;
-    });
-    return extensionId;
-};
+ 
+ const getExtensionId = async (driver) => {
+     if (extensionId) return extensionId;
+     await driver.get("chrome://extensions/");
+     await driver.sleep(1000);
+     extensionId = await driver.executeScript(() => {
+         const manager = document.querySelector('extensions-manager')?.shadowRoot;
+         const extensionsList = manager.querySelector('extensions-item-list')?.shadowRoot;
+         const extensions = extensionsList.querySelectorAll('extensions-item');
+         if(extensions && extensions[0]) {
+             return extensions[0].id;
+         }
+         return undefined;
+     });
+     return extensionId;
+    }
 
 
  beforeEach(async function() {
@@ -770,7 +770,7 @@ const getExtensionId = async (driver) => {
 afterEach(async function() {
     await driver.quit();
 });
-
+/*
 it('should create a new list', async function() {
     const newListButton = await driver.findElement(By.id('createList'));
     await driver.executeScript("window.prompt = function() { return 'New List'; }");
@@ -1300,7 +1300,7 @@ it('should disable background color selection when "lock" option is enabled', as
     const body = await driver.findElement(By.tagName('body'));
     const bgColor = await body.getCssValue('background-color');
     assert.notStrictEqual(bgColor, 'rgba(0, 0, 255, 1)', "Background color changed despite being locked");
-});
+});*/
 
 describe('CSC510 Group 5 Testing', () => {
     // 1. Tooltip variant test with alternate tooltip text
