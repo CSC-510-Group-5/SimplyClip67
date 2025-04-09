@@ -1564,9 +1564,8 @@ describe('CSC510 Group 5 Testing', () => {
         await hideButton.click();
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
-        let text = await driver.findElement(By.css("p[class='data']"));
-        let value = text.getCssValue('color');
-        assert(value === 'blue', "Data should not be lost when hiding")
+        let value = await driver.findElement(By.css("p[class='data']")).getCssValue('color');
+        assert(value == 'blue', "Data should not be lost when hiding")
     })
 
     //26. Test text color black
@@ -1581,9 +1580,8 @@ describe('CSC510 Group 5 Testing', () => {
         await hideButton.click();
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
-        let text = await driver.findElement(By.css("p[class='data']"));
-        let value = text.getCssValue('color');
-        assert(value === 'black', "Data should not be lost when hiding")
+        let value = await driver.findElement(By.css("p[class='data']")).getCssValue('color');
+        assert(value == 'black', "Data should not be lost when hiding")
     })
 
     //27. Test text color red
