@@ -9,7 +9,7 @@
 [![Test Cases](https://img.shields.io/badge/tests-passing-green)](https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/actions/workflows/coverage.yml)
 ![GitHub contributors](https://img.shields.io/github/contributors/CSC510-Software-Engineering-Fall-2024/SimplyClip)
 [![GitHub-size](https://img.shields.io/github/languages/code-size/CSC510-Software-Engineering-Fall-2024/SimplyClip)](https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip)
-[![Coverage Status](https://img.shields.io/badge/code%20coverage-98.36%25-brightgreen)](https://csc510-software-engineering-fall-2024.github.io/SimplyClip/)
+[![Coverage Status](https://img.shields.io/badge/code%20coverage-98.36%25-brightgreen)](https://csc-510-group-5.github.io/SimplyClip67/)
 <a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/forks" target="blank">
 <img src="https://img.shields.io/github/forks/CSC510-Software-Engineering-Fall-2024/SimplyClip?style=flat-square" alt="SimplyClip forks"/>
 </a>
