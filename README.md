@@ -326,3 +326,6 @@ We would like to thank Professor Dr Timothy Menzies for helping us understand th
 
 *** If you have any further queries, contact us on the above emails. Enjoy using SimplyClip! ***
 
+## Contact For Support
+If you need software support for SimplyClip, contact [cablumsa@ncsu.edu](mailto:cablumsa@ncsu.edu)
+
