@@ -1527,7 +1527,7 @@ describe('CSC510 Group 5 Testing', () => {
     })
 
     //23. Test if content is still present after hide for text
-    it('should re-display an element after hiding', async function() {
+    it('should re-display an element after hiding for text', async function() {
         const testText = 'This text should not be deleted';
         const addButton = await driver.findElement(By.id("add-btn"));
         await addButton.click();
@@ -1540,7 +1540,7 @@ describe('CSC510 Group 5 Testing', () => {
     })
 
     //24. Test if content is still present after hide for image
-    it('should re-display an element after hiding', async function() {
+    it('should re-display an element after hiding for image', async function() {
         const testText = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fdogs&psig=AOvVaw3qpA3UmS6wFBp0P1I1mjNs&ust=1743645941215000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPD9gbmhuIwDFQAAAAAdAAAAABAE';
         const addButton = await driver.findElement(By.id("add-btn"));
         await addButton.click();
@@ -1564,7 +1564,7 @@ describe('CSC510 Group 5 Testing', () => {
         await hideButton.click();
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
-        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let text = await driver.findElement(By.css("p[class='data']"));
         let value = text.getCssValue('color');
         assert(value === 'blue', "Data should not be lost when hiding")
     })
@@ -1581,7 +1581,7 @@ describe('CSC510 Group 5 Testing', () => {
         await hideButton.click();
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
-        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let text = await driver.findElement(By.css("p[class='data']"));
         let value = text.getCssValue('color');
         assert(value === 'black', "Data should not be lost when hiding")
     })
@@ -1598,7 +1598,7 @@ describe('CSC510 Group 5 Testing', () => {
         await hideButton.click();
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
-        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let text = await driver.findElement(By.css("p[class='data']"));
         let value = text.getCssValue('color');
         assert(value === 'red', "Data should not be lost when hiding")
     })
@@ -1615,7 +1615,7 @@ describe('CSC510 Group 5 Testing', () => {
         await hideButton.click();
         const uhideButton = await driver.findElement(By.className("unhide"));
         await uhideButton.click();
-        let text = await driver.findElement(By.css("p[class='data']")).getText();
+        let text = await driver.findElement(By.css("p[class='data']"));
         let value = text.getCssValue('color');
         assert(value === 'green', "Data should not be lost when hiding")
     })
