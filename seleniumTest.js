@@ -975,7 +975,7 @@ it('should have Default as the first active list', async function() {
 //     await colorButton.click();
 //     const body = await driver.findElement(By.tagName('body'));
 //     const bgColor = await body.getCssValue('background-color');
-//     assert.strictEqual(bgColor, 'rgba(255, 0, 0, 1)', "Background color didn't change to red");
+//     assert.strictEqual(bgColor, 'rgba(255, 0, 0, 1)', "Background color didn't change");
 // });
 
 // it('should change background color to blue', async function() {
@@ -1295,6 +1295,7 @@ describe('CSC510 Group 5 Testing', () => {
         assert.strictEqual(themeSetting, 'dark', 'Settings did not persist after refresh');
     });
 
+    //gckoonts tests
     it('should contain a download log button', async function () {
             const downloadButton = await driver.findElement(By.id('downloadLog'));
             const isDisplayed = await downloadButton.isDisplayed();
@@ -1327,20 +1328,137 @@ describe('CSC510 Group 5 Testing', () => {
             }
     });
 
-    // it('should not allow creating a list with an empty name', async function () {
-    //     const newListButton = await driver.findElement(By.id('createList'));
-    //     await driver.executeScript("window.prompt = function() { return ''; }");
-    //     await newListButton.click();
-    //     const listOptions = await driver.findElements(By.css('#listDropdown option'));
-    //     let foundEmpty = false;
-    //     for (let option of listOptions) {
-    //         if ((await option.getText()) === '') {
-    //             foundEmpty = true;
-    //             break;
-    //         }
-    //     }
-    //     assert.strictEqual(foundEmpty, false, 'List with an empty name was created');
-    // });
+    it('should store selected color in local storage', async function() {
+         const colorButton = await driver.findElement(By.id('color-purple'));
+         await colorButton.click();
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(storedColor, 'rgba(128, 0, 128, 1)', "Background color didn't change");
+    });
+
+    it('should store selected color in local storage', async function() {
+         const colorButton = await driver.findElement(By.id('color-yellow'));
+         await colorButton.click();
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(storedColor, 'rgba(128, 128, 0, 1)', "Background color didn't change");
+    });
+
+    it('should store selected color in local storage', async function() {
+             const colorButton = await driver.findElement(By.id('color-teal'));
+             await colorButton.click();
+             const body = await driver.findElement(By.tagName('body'));
+             const bgColor = await body.getCssValue('background-color');
+             assert.strictEqual(storedColor, 'rgba(0, 128, 128, 1)', "Background color didn't change");
+    });
+
+    it('should store selected color in local storage', async function() {
+             const colorButton = await driver.findElement(By.id('color-black'));
+             await colorButton.click();
+             const body = await driver.findElement(By.tagName('body'));
+             const bgColor = await body.getCssValue('background-color');
+             assert.strictEqual(storedColor, 'rgba(255, 255, 255, 1)', "Background color didn't change");
+    });
+
+
+    it('should change background color to red', async function() {
+         const colorButton = await driver.findElement(By.id('color-red'));
+         await colorButton.click();
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(255, 0, 0, 1)', "Background color didn't change");
+    });
+
+    it('should change background color to blue', async function() {
+             const colorButton = await driver.findElement(By.id('color-blue'));
+             await colorButton.click();
+             const body = await driver.findElement(By.tagName('body'));
+             const bgColor = await body.getCssValue('background-color');
+             assert.strictEqual(bgColor, 'rgba(0, 0, 255, 1)', "Background color didn't change");
+    });
+
+    it('should change background color to green', async function() {
+             const colorButton = await driver.findElement(By.id('color-green'));
+             await colorButton.click();
+             const body = await driver.findElement(By.tagName('body'));
+             const bgColor = await body.getCssValue('background-color');
+             assert.strictEqual(bgColor, 'rgba(0, 0255, 0, 1)', "Background color didn't change");
+    });
+
+    it('should allow color selection from predefined color palette', async function() {
+         const colorPalette = await driver.findElement(By.id('color-palette'));
+         const colorOptions = await colorPalette.findElements(By.css('.color-option'));
+         await colorOptions[3].click(); // Select a color
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.notStrictEqual(bgColor, 'rgba(255, 255, 255, 1)', "Color palette selection failed");
+    });
+
+
+    it('should not change color when invalid value is entered in color picker', async function() {
+         const colorPicker = await driver.findElement(By.id('color-picker'));
+         await colorPicker.sendKeys('invalidColor');
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.notStrictEqual(bgColor, 'invalidColor', "Invalid color was applied");
+    });
+
+    it('should reset background color to default', async function() {
+         const resetButton = await driver.findElement(By.id('reset-color'));
+         await resetButton.click();
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(255, 255, 255, 1)', "Background color reset failed");
+    });
+
+
+    it('should change background color to white', async function() {
+         const colorButton = await driver.findElement(By.id('color-white'));
+         await colorButton.click();
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(255, 255, 255, 1)', "Background color didn't change to white");
+    });
+
+    it('should change background color using color picker', async function() {
+         const colorPicker = await driver.findElement(By.id('color-picker'));
+         await colorPicker.sendKeys('#00ff00'); // Green
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(0, 255, 0, 1)', "Background color didn't change via color picker");
+    });
+
+    it('should change background color using color picker', async function() {
+         const colorPicker = await driver.findElement(By.id('color-picker'));
+         await colorPicker.sendKeys('#ffff00'); // Green
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(255, 255, 0, 1)', "Background color didn't change via color picker");
+    });
+
+    it('should change background color using color picker', async function() {
+         const colorPicker = await driver.findElement(By.id('color-picker'));
+         await colorPicker.sendKeys('#00ffff'); // Green
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(0, 255, 255, 1)', "Background color didn't change via color picker");
+    });
+
+    it('should change background color using color picker', async function() {
+         const colorPicker = await driver.findElement(By.id('color-picker'));
+         await colorPicker.sendKeys('#ffffff'); // Green
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(255, 255, 255, 1)', "Background color didn't change via color picker");
+    });
+
+    it('should change background color using color picker', async function() {
+         const colorPicker = await driver.findElement(By.id('color-picker'));
+         await colorPicker.sendKeys('#000000'); // Green
+         const body = await driver.findElement(By.tagName('body'));
+         const bgColor = await body.getCssValue('background-color');
+         assert.strictEqual(bgColor, 'rgba(0, 0, 0, 1)', "Background color didn't change via color picker");
+    });
 
     // it('should display an error when trying to delete a non-existent list', async function () {
     //     const deleteListButton = await driver.findElement(By.id('deleteList'));
