@@ -10,13 +10,13 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "icons": {
     "32": "./images/paper-note-32.png"
   },
   "options_page": "./test/test.html",
-  "browser_action": {
+  "action": {
     "default_icon": "./images/paper-note-32.png",
     "default_title": "SimplyClip",
     "default_popup": "popup.html"

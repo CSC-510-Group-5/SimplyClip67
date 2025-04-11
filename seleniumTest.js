@@ -1295,6 +1295,7 @@ describe('CSC510 Group 5 Testing', () => {
         assert.strictEqual(themeSetting, 'dark', 'Settings did not persist after refresh');
     });
 
+
     //Connor Blumsack's tests
     //21. Test element before hide
     it('should hide an entry when the hide button is clicked', async function() {
@@ -1577,6 +1578,178 @@ describe('CSC510 Group 5 Testing', () => {
     })
 
 
+//gckoonts tests
+    it('should contain a download log button', async function () {
+            const downloadButton = await driver.findElement(By.id('downloadLog'));
+            const isDisplayed = await downloadButton.isDisplayed();
+            assert.strictEqual(isDisplayed, true, 'Download button is not visible on the popup');
+    });
+
+    it('should contain a create list button', async function () {
+                const downloadButton = await driver.findElement(By.id('createList'));
+                const isDisplayed = await downloadButton.isDisplayed();
+                assert.strictEqual(isDisplayed, true, 'Create List button is not visible on the popup');
+    });
+
+
+    it('should contain a delete list button', async function () {
+                const downloadButton = await driver.findElement(By.id('deleteList'));
+                const isDisplayed = await downloadButton.isDisplayed();
+                assert.strictEqual(isDisplayed, true, 'Delete List button is not visible on the popup');
+    });
+
+    it('should contain an add button', async function () {
+                const downloadButton = await driver.findElement(By.id('add-btn'));
+                const isDisplayed = await downloadButton.isDisplayed();
+                assert.strictEqual(isDisplayed, true, 'Add button is not visible on the popup');
+    });
+
+    it('should click the downloadLog button and trigger the downloader handler, fail if error thrown', async function () {
+
+        // Click the button
+        try{
+        const downloadButton = await driver.findElement(By.id('downloadLog'));
+        await downloadButton.click();
+
+        assert.ok(true, 'Click event did not throw an error');
+            } catch (err) {
+                // If an error occurs, the test should fail
+                assert.fail(`Clicking the download button threw an error: ${err.message}`);
+            }
+    });
+
+    it('should check the background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#ffffff', 'Color should be white'); // Change to expected color
+    });
+
+    it('should check the background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('Sky');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#ccf1ff', 'Color should be sky'); // Change to expected color
+    });
+
+    it('should check the background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('Purple');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#e0d7ff', 'Color should be purple'); // Change to expected color
+    });
+
+    it('should check the background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('Green');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#ccffcc', 'Color should be green'); // Change to expected color
+    });
+
+    it('should check the background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('Yellow');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#fffacc', 'Color should be yellow'); // Change to expected color
+    });
+
+    it('should try a bad  background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('Orange');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#ffffff', 'Color should be yellow'); // Change to expected color
+    });
+
+    it('should try a bad background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#ffffff', 'Color should be yellow'); // Change to expected color
+    });
+
+    it('should try a bad background color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('bg-color'));
+         await colorSelect.sendKeys('#b2d8d8');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), '#ffffff', 'Color should be yellow'); // Change to expected color
+    });
+
+    it('should check the text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'black', 'Color should be black'); // Change to expected color
+    });
+
+    it('should check the text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         await colorSelect.sendKeys('Blue');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'blue', 'Color should be blue'); // Change to expected color
+    });
+
+    it('should check the text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         await colorSelect.sendKeys('Red');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'red', 'Color should be red'); // Change to expected color
+    });
+
+    it('should check the text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         await colorSelect.sendKeys('Green');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'green', 'Color should be green'); // Change to expected color
+    });
+
+    it('should try a bad text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         await colorSelect.sendKeys('Navy');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'black', 'Color should be black'); // Change to expected color
+    });
+
+    it('should try a bad text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         await colorSelect.sendKeys('');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'black', 'Color should be black'); // Change to expected color
+    });
+
+    it('should try a bad text color', async function() {
+         const addButton = await driver.findElement(By.id('add-btn'));
+         await addButton.click();
+         const colorSelect = await driver.findElement(By.id('color'));
+         await colorSelect.sendKeys('#b2d8d8');
+         const selectedColor = await colorSelect.getAttribute('value');
+         assert.strictEqual(selectedColor.toLowerCase(), 'black', 'Color should be black'); // Change to expected color
+    });
 
     // it('should not allow creating a list with an empty name', async function () {
     //     const newListButton = await driver.findElement(By.id('createList'));
