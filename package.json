@@ -33,10 +33,11 @@
     "build": "npm build",
     "test": "npm run single",
     "istanbul-coverage": "nyc --reporter=html mocha seleniumTest.js",
-    "single": "./node_modules/.bin/mocha seleniumTest.js"
+    "single": "./node_modules/.bin/mocha --timeout 100000 seleniumTest.js",
+    "actions_generator": "node scripts/generateTestConfig.js"
   },
   "dependencies": {
-    "chromedriver": "^130.0.2",
+    "chromedriver": "^134.0.5",
     "save": "^2.4.0",
     "selenium-webdriver": "^4.26.0"
   }
