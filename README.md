@@ -2,33 +2,33 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10211680.svg)](https://zenodo.org/records/10211680)
 
 ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m789313708-ea25af592e8a7a84c009055e)
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/blob/Group24DeveloperBranch/LICENSE" target="blank">
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/blob/main/LICENSE" target="blank">
 <img src="https://img.shields.io/github/license/CSC510-Software-Engineering-Fall-2024/SimplyClip?style=flat-square" alt="SimplyClip license" />
-[![GitHub Release](https://img.shields.io/badge/release-v5.2-blue)](https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip)
-![GitHub language count](https://img.shields.io/github/languages/count/CSC510-Software-Engineering-Fall-2024/SimplyClip)
-[![Test Cases](https://img.shields.io/badge/tests-passing-green)](https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/actions/workflows/coverage.yml)
-![GitHub contributors](https://img.shields.io/github/contributors/CSC510-Software-Engineering-Fall-2024/SimplyClip)
-[![GitHub-size](https://img.shields.io/github/languages/code-size/CSC510-Software-Engineering-Fall-2024/SimplyClip)](https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip)
+[![GitHub Release](https://img.shields.io/badge/release-v5.2-blue)](https://github.com/CSC-510-Group-5/SimplyClip67)
+![GitHub language count](https://img.shields.io/github/languages/count/CSC-510-Group-5/SimplyClip67)
+[![Test Cases](https://img.shields.io/badge/tests-passing-green)](https://github.com/CSC-510-Group-5/SimplyClip67/actions/workflows/coverage.yml)
+![GitHub contributors](https://img.shields.io/github/contributors/CSC-510-Group-5/SimplyClip67)
+[![GitHub-size](https://img.shields.io/github/languages/code-size/CSC-510-Group-5/SimplyClip67)](https://github.com/CSC-510-Group-5/SimplyClip67)
 [![Coverage Status](https://img.shields.io/badge/code%20coverage-98.36%25-brightgreen)](https://csc-510-group-5.github.io/SimplyClip67/)
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/forks" target="blank">
-<img src="https://img.shields.io/github/forks/CSC510-Software-Engineering-Fall-2024/SimplyClip?style=flat-square" alt="SimplyClip forks"/>
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/forks" target="blank">
+<img src="https://img.shields.io/github/forks/CSC-510-Group-5/SimplyClip67?style=flat-square" alt="SimplyClip forks"/>
 </a>
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/stargazers" target="blank">
-<img src="https://img.shields.io/github/stars/CSC510-Software-Engineering-Fall-2024/SimplyClip?style=flat-square" alt="SimplyClip stars"/>
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/stargazers" target="blank">
+<img src="https://img.shields.io/github/stars/CSC-510-Group-5/SimplyClip67?style=flat-square" alt="SimplyClip stars"/>
 </a>
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/issues" target="blank">
-<img src="https://img.shields.io/github/issues/CSC510-Software-Engineering-Fall-2024/SimplyClip?style=flat-square" alt="SimplyClip issues"/>
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/issues" target="blank">
+<img src="https://img.shields.io/github/issues/CSC-510-Group-5/SimplyClip67?style=flat-square" alt="SimplyClip issues"/>
 </a>
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/issues?q=is%3Aissue+is%3Aclosed" target="blank">
-<img src="https://img.shields.io/github/issues-closed/CSC510-Software-Engineering-Fall-2024/SimplyClip" alt="SimplyClip issues closed"/>
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/issues?q=is%3Aissue+is%3Aclosed" target="blank">
+<img src="https://img.shields.io/github/issues-closed/CSC-510-Group-5/SimplyClip67" alt="SimplyClip issues closed"/>
 </a>
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/pulls" target="blank">
-<img src="https://img.shields.io/github/issues-pr/CSC510-Software-Engineering-Fall-2024/SimplyClip?style=flat-square" alt="SimplyClip pull-requests"/>
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/pulls" target="blank">
+<img src="https://img.shields.io/github/issues-pr/CSC-510-Group-5/SimplyClip67?style=flat-square" alt="SimplyClip pull-requests"/>
 </a>
-<a href="https://github.com/CSC510-Software-Engineering-Fall-2024/SimplyClip/graphs/commit-activity" alt="commit activity">
-<img src="https://img.shields.io/github/commit-activity/w/CSC510-Software-Engineering-Fall-2024/SimplyClip" /></a> 
-<a href="https://img.shields.io/github/repo-size/CSC510-Software-Engineering-Fall-2024/SimplyClip" alt="repo size">
-<img src="https://img.shields.io/github/repo-size/CSC510-Software-Engineering-Fall-2024/SimplyClip" /></a>
+<a href="https://github.com/CSC-510-Group-5/SimplyClip67/graphs/commit-activity" alt="commit activity">
+<img src="https://img.shields.io/github/commit-activity/w/CSC-510-Group-5/SimplyClip67" /></a> 
+<a href="https://img.shields.io/github/repo-size/CSC-510-Group-5/SimplyClip67" alt="repo size">
+<img src="https://img.shields.io/github/repo-size/CSC-510-Group-5/SimplyClip67" /></a>
 
 ### &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;:paperclips: &emsp;  Clipboard Made Easy For Research &emsp; :paperclips:
 
