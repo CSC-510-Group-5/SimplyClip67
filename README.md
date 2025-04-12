@@ -111,11 +111,11 @@ While working on finding reuse we spent significant amount of time searching and
 https://user-images.githubusercontent.com/66715000/139998327-13eff7db-3375-4a1b-b888-5ed63115e31b.mp4
 
 
-## Demo
+## New Features Demo
 
-[https://youtu.be/sR3Q3ZVW0vo](https://www.youtube.com/watch?v=sR3Q3ZVW0vo)
-<h2> SPRING 2025 ENHANCEMENTS </h2>
-[https://drive.google.com/file/d/18K2wnuH5q0qV2gUrtXfNSzuHqdspXBSO/view?usp=sharing](https://drive.google.com/file/d/18K2wnuH5q0qV2gUrtXfNSzuHqdspXBSO/view?usp=sharing)
+<a href="https://www.youtube.com/watch?v=28oQcfaXbcA" target="_blank"> 
+  <img src="https://img.youtube.com/vi/28oQcfaXbcA/hqdefault.jpg" alt="SimplyClip67" style="width:600px;"/>
+</a>
 
 ---
 
